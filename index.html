@@ -32,7 +32,6 @@
         /* Hero Section */
         .hero { min-height: 100vh; display: flex; align-items: center; padding: 0 8%; padding-top: 80px; }
         .hero-content { max-width: 800px; }
-        .badge { display: inline-block; background: rgba(16, 185, 129, 0.1); color: var(--green); padding: 6px 15px; border-radius: 20px; font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; border: 1px solid rgba(16, 185, 129, 0.2); }
         .hero h1 { font-size: 64px; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 20px; }
         .hero h1 span { color: var(--gold); }
         .hero p { font-size: 20px; color: var(--text-muted); margin-bottom: 40px; max-width: 600px; }
@@ -60,12 +59,15 @@
         .phase-label { display: inline-block; background: var(--light-navy); color: var(--text-main); padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;}
         .phase-active { background: rgba(212, 175, 55, 0.2); color: var(--gold); border: 1px solid var(--gold); }
 
-        /* Founder Section */
-        .founder-container { display: flex; align-items: center; gap: 50px; background: var(--card-navy); padding: 50px; border-radius: 12px; border: 1px solid var(--light-navy); max-width: 900px; margin: 0 auto; }
-        .founder-img { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); background-color: var(--light-navy); display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-size: 14px; text-align: center; flex-shrink: 0;}
-        .founder-info h3 { font-size: 28px; color: #fff; margin-bottom: 5px; }
-        .founder-info h4 { font-size: 16px; color: var(--gold); margin-bottom: 20px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;}
-        .founder-info p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 15px; }
+        /* Founder Section (Text Only Layout) */
+        .founder-container { display: flex; flex-direction: column; background: var(--card-navy); padding: 50px; border-radius: 12px; border: 1px solid var(--light-navy); max-width: 900px; margin: 0 auto; text-align: left; }
+        .founder-info h3 { font-size: 32px; color: #fff; margin-bottom: 5px; }
+        .founder-info h4 { font-size: 16px; color: var(--gold); margin-bottom: 25px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
+        .founder-info p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 20px; }
+        .founder-info p:last-child { margin-bottom: 0; }
+        .founder-highlights { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--light-navy); display: flex; gap: 20px; flex-wrap: wrap; }
+        .highlight-item { font-size: 14px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
+        .highlight-item span { color: var(--gold); font-size: 18px; }
 
         /* Footer */
         footer { text-align: center; padding: 40px 8%; border-top: 1px solid var(--light-navy); color: var(--text-muted); font-size: 14px; }
@@ -74,7 +76,7 @@
             .hero h1 { font-size: 40px; }
             .nav-links { display: none; }
             .hero-btns { flex-direction: column; }
-            .founder-container { flex-direction: column; text-align: center; }
+            .founder-container { padding: 30px; }
         }
     </style>
 </head>
@@ -92,7 +94,6 @@
 
     <section class="hero">
         <div class="hero-content">
-            <div class="badge">GOOGLE ACCELERATOR APPLICANT</div>
             <h1>Agentic Intelligence for <span>Athletic Performance.</span></h1>
             <p>We transform raw athlete data into predictive, actionable insights using advanced AI-Powered Analytics. Stop guessing, start optimizing.</p>
             <div class="hero-btns">
@@ -156,12 +157,17 @@
             <h2>Meet the Founder</h2>
         </div>
         <div class="founder-container">
-            <img src="https://ui-avatars.com/api/?name=Founder&background=d4af37&color=0A192F&size=200" alt="Founder" class="founder-img">
             <div class="founder-info">
                 <h3>Jitendra Sonu Jagdale</h3>
-                <h4>Founder & CEO</h4>
-                <p>Driven by a vision to democratize elite sports science, I built Sportz-Well to bridge the gap between raw athletic potential and data-driven execution. By leveraging Agentic Intelligence, we are completely removing the guesswork from coaching and physical education.</p>
-                <p>Our mission is not just to build better athletes, but to create a universally accessible standard for fitness and wellness tracking across India's schools, academies, and corporate institutions.</p>
+                <h4>Founder & CEO, Sportz-Well</h4>
+                <p>Driven by a deep background in Mumbai cricket, I built Sportz-Well to bridge the gap between raw athletic potential and data-driven execution. Having trained at Shardashram Vidyalaya and shared the dressing room with Sachin Tendulkar, I understand the discipline required at the highest levels of the game.</p>
+                <p>With over 30 years of combined cricket experience within our leadership, we operate on a core belief: sports development is 80% mental toughness and 20% technique. By leveraging Agentic Intelligence, we are completely removing the guesswork from coaching. Our platform ensures that students learn discipline, resilience, and high-pressure decision-making, while creating real pathways for talented youth into competitive club and state-level teams.</p>
+                
+                <div class="founder-highlights">
+                    <div class="highlight-item"><span>🏆</span> Former Mumbai University Player</div>
+                    <div class="highlight-item"><span>👁️</span> Current MCA Match Observer</div>
+                    <div class="highlight-item"><span>🏏</span> 2x Times Shield Winner</div>
+                </div>
             </div>
         </div>
     </section>
