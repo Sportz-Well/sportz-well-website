@@ -23,6 +23,7 @@
         nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 8%; background: rgba(10, 25, 47, 0.95); position: fixed; width: 100%; top: 0; z-index: 100; backdrop-filter: blur(10px); }
         .logo { font-size: 24px; font-weight: 900; color: #fff; letter-spacing: 1px; }
         .logo span { color: var(--gold); }
+        .nav-links { display: flex; align-items: center; }
         .nav-links a { color: var(--text-main); text-decoration: none; margin-left: 30px; font-weight: 500; font-size: 14px; transition: color 0.3s; }
         .nav-links a:hover { color: var(--gold); }
         .btn-nav { border: 1px solid var(--gold); color: var(--gold) !important; padding: 10px 20px; border-radius: 4px; }
@@ -41,8 +42,9 @@
         .btn-secondary { background: transparent; color: #fff; padding: 18px 36px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; border: 1px solid var(--light-navy); transition: border-color 0.3s; }
         .btn-secondary:hover { border-color: var(--gold); }
 
-        /* Features Section */
-        .features { padding: 100px 8%; background: var(--card-navy); }
+        /* Sections General */
+        .section-pad { padding: 100px 8%; }
+        .bg-card { background: var(--card-navy); }
         .section-header { text-align: center; margin-bottom: 60px; }
         .section-header h2 { font-size: 36px; color: #fff; margin-bottom: 15px; }
         .section-header p { color: var(--gold); font-weight: 500; font-size: 16px; text-transform: uppercase; letter-spacing: 2px; }
@@ -54,6 +56,17 @@
         .card h3 { color: #fff; font-size: 22px; margin-bottom: 15px; }
         .card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
 
+        /* Roadmap Phase Labels */
+        .phase-label { display: inline-block; background: var(--light-navy); color: var(--text-main); padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;}
+        .phase-active { background: rgba(212, 175, 55, 0.2); color: var(--gold); border: 1px solid var(--gold); }
+
+        /* Founder Section */
+        .founder-container { display: flex; align-items: center; gap: 50px; background: var(--card-navy); padding: 50px; border-radius: 12px; border: 1px solid var(--light-navy); max-width: 900px; margin: 0 auto; }
+        .founder-img { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); background-color: var(--light-navy); display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-size: 14px; text-align: center; flex-shrink: 0;}
+        .founder-info h3 { font-size: 28px; color: #fff; margin-bottom: 5px; }
+        .founder-info h4 { font-size: 16px; color: var(--gold); margin-bottom: 20px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;}
+        .founder-info p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 15px; }
+
         /* Footer */
         footer { text-align: center; padding: 40px 8%; border-top: 1px solid var(--light-navy); color: var(--text-muted); font-size: 14px; }
 
@@ -61,6 +74,7 @@
             .hero h1 { font-size: 40px; }
             .nav-links { display: none; }
             .hero-btns { flex-direction: column; }
+            .founder-container { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -69,8 +83,9 @@
     <nav>
         <div class="logo">SPORTZ-WELL<span>.</span></div>
         <div class="nav-links">
-            <a href="#platform">Platform</a>
-            <a href="#technology">Technology</a>
+            <a href="#platform">Technology</a>
+            <a href="#vision">Our Vision</a>
+            <a href="#founder">About</a>
             <a href="https://sportz-well-demo.vercel.app/login.html" class="btn-nav" target="_blank" rel="noopener noreferrer">Client Login</a>
         </div>
     </nav>
@@ -78,7 +93,7 @@
     <section class="hero">
         <div class="hero-content">
             <div class="badge">GOOGLE ACCELERATOR APPLICANT</div>
-            <h1>Agentic Intelligence for <span>Cricket Academies.</span></h1>
+            <h1>Agentic Intelligence for <span>Athletic Performance.</span></h1>
             <p>We transform raw athlete data into predictive, actionable insights using advanced AI-Powered Analytics. Stop guessing, start optimizing.</p>
             <div class="hero-btns">
                 <a href="#platform" class="btn-primary">Explore the Platform</a>
@@ -87,7 +102,7 @@
         </div>
     </section>
 
-    <section id="platform" class="features">
+    <section id="platform" class="section-pad bg-card">
         <div class="section-header">
             <p>Core Technology</p>
             <h2>AI-Powered Analytics Architecture</h2>
@@ -101,12 +116,52 @@
             <div class="card">
                 <div class="card-icon">📊</div>
                 <h3>Dynamic Data Models</h3>
-                <p>Replace static spreadsheets with living databases. Our AI-Powered Analytics engine automatically recalculates squad averages, risk distribution, and historical trends instantly.</p>
+                <p>Replace static spreadsheets with living databases. Our AI engine automatically recalculates squad averages, risk distribution, and historical trends instantly.</p>
             </div>
             <div class="card">
                 <div class="card-icon">⚡</div>
-                <h3>Automated Tournament Filtering</h3>
-                <p>Instantly sort squads by age brackets (U12, U14, U16) ensuring compliance and saving hours of administrative overhead for academy directors and coaches.</p>
+                <h3>Automated Compliance</h3>
+                <p>Instantly sort squads by age brackets and demographics, ensuring structural compliance and saving hours of administrative overhead for directors.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="vision" class="section-pad">
+        <div class="section-header">
+            <p>Strategic Roadmap</p>
+            <h2>Scaling Pan-India Fitness Intelligence</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <div class="phase-label phase-active">Phase 1: Live MVP</div>
+                <h3>Precision Cricket Analytics</h3>
+                <p>Establishing our data foundation with specialized cricket academies. Providing coaches with deep-tier metrics on physical, mental, and technical skill acquisition to build the ultimate digital roster.</p>
+            </div>
+            <div class="card">
+                <div class="phase-label">Phase 2: Upcoming</div>
+                <h3>Multi-Sport Ecosystem</h3>
+                <p>Adapting our Agentic AI models to encompass football, athletics, and basketball. Creating a universal baseline for youth athletic development and standardizing sports intelligence across disciplines.</p>
+            </div>
+            <div class="card">
+                <div class="phase-label">Phase 3: Long Term</div>
+                <h3>Institutional Scale</h3>
+                <p>Deploying our intelligence infrastructure across Pan-India schools and corporate wellness programs. Transforming physical education from subjective grading to objective, data-driven health tracking.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="founder" class="section-pad bg-card">
+        <div class="section-header">
+            <p>Leadership</p>
+            <h2>Meet the Founder</h2>
+        </div>
+        <div class="founder-container">
+            <img src="https://ui-avatars.com/api/?name=Founder&background=d4af37&color=0A192F&size=200" alt="Founder" class="founder-img">
+            <div class="founder-info">
+                <h3>Jitendra Sonu Jagdale</h3>
+                <h4>Founder & CEO</h4>
+                <p>Driven by a vision to democratize elite sports science, I built Sportz-Well to bridge the gap between raw athletic potential and data-driven execution. By leveraging Agentic Intelligence, we are completely removing the guesswork from coaching and physical education.</p>
+                <p>Our mission is not just to build better athletes, but to create a universally accessible standard for fitness and wellness tracking across India's schools, academies, and corporate institutions.</p>
             </div>
         </div>
     </section>
