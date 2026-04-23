@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sportz-Well | AI-Powered Performance Intelligence</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --navy: #0A192F;
@@ -17,66 +17,62 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--navy); color: var(--text-main); line-height: 1.6; }
+        body { background-color: var(--navy); color: var(--text-main); line-height: 1.6; scroll-behavior: smooth; }
         
         /* Navbar */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 8%; background: rgba(10, 25, 47, 0.95); position: fixed; width: 100%; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 8%; background: rgba(10, 25, 47, 0.95); position: fixed; width: 100%; top: 0; z-index: 100; backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
         .logo { font-size: 24px; font-weight: 900; color: #fff; letter-spacing: 1px; }
         .logo span { color: var(--gold); }
-        .nav-links { display: flex; align-items: center; }
-        .nav-links a { color: var(--text-main); text-decoration: none; margin-left: 30px; font-weight: 500; font-size: 14px; transition: color 0.3s; }
+        .nav-links a { color: var(--text-main); text-decoration: none; margin-left: 35px; font-weight: 600; font-size: 14px; transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px;}
         .nav-links a:hover { color: var(--gold); }
-        .btn-nav { border: 1px solid var(--gold); color: var(--gold) !important; padding: 10px 20px; border-radius: 4px; }
+        .btn-nav { border: 1px solid var(--gold); color: var(--gold) !important; padding: 10px 24px; border-radius: 4px; }
         .btn-nav:hover { background: rgba(212, 175, 55, 0.1); }
 
         /* Hero Section */
-        .hero { min-height: 100vh; display: flex; align-items: center; padding: 0 8%; padding-top: 80px; }
+        .hero { min-height: 100vh; display: flex; align-items: center; padding: 0 8%; padding-top: 80px; background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.05), transparent 40%); }
         .hero-content { max-width: 800px; }
-        .hero h1 { font-size: 64px; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 20px; }
+        .badge { display: inline-block; background: rgba(16, 185, 129, 0.1); color: var(--green); padding: 6px 15px; border-radius: 20px; font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 25px; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .hero h1 { font-size: 64px; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 25px; }
         .hero h1 span { color: var(--gold); }
-        .hero p { font-size: 20px; color: var(--text-muted); margin-bottom: 40px; max-width: 600px; }
+        .hero p { font-size: 20px; color: var(--text-muted); margin-bottom: 40px; max-width: 650px; line-height: 1.8; }
         .hero-btns { display: flex; gap: 20px; }
-        .btn-primary { background: var(--gold); color: var(--navy); padding: 18px 36px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; transition: transform 0.2s; }
-        .btn-primary:hover { transform: translateY(-2px); }
-        .btn-secondary { background: transparent; color: #fff; padding: 18px 36px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; border: 1px solid var(--light-navy); transition: border-color 0.3s; }
-        .btn-secondary:hover { border-color: var(--gold); }
+        .btn-primary { background: var(--gold); color: var(--navy); padding: 18px 36px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--gold);}
+        .btn-primary:hover { background: #b8972e; border-color: #b8972e; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+        .btn-secondary { background: transparent; color: #fff; padding: 18px 36px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 16px; border: 1px solid var(--light-navy); transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;}
+        .btn-secondary:hover { border-color: var(--text-main); }
 
-        /* Sections General */
-        .section-pad { padding: 100px 8%; }
-        .bg-card { background: var(--card-navy); }
+        /* Features Section */
+        .features { padding: 100px 8%; background: var(--card-navy); }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 36px; color: #fff; margin-bottom: 15px; }
-        .section-header p { color: var(--gold); font-weight: 500; font-size: 16px; text-transform: uppercase; letter-spacing: 2px; }
+        .section-header h2 { font-size: 36px; color: #fff; margin-bottom: 15px; font-weight: 900; }
+        .section-header p { color: var(--gold); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
         
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: var(--navy); padding: 40px; border-radius: 12px; border: 1px solid var(--light-navy); transition: transform 0.3s; }
-        .card:hover { transform: translateY(-10px); border-color: var(--gold); }
+        .card { background: var(--navy); padding: 40px; border-radius: 8px; border: 1px solid var(--light-navy); transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .card-icon { font-size: 40px; margin-bottom: 20px; }
-        .card h3 { color: #fff; font-size: 22px; margin-bottom: 15px; }
+        .card h3 { color: #fff; font-size: 22px; margin-bottom: 15px; font-weight: 700; }
         .card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
 
-        /* Roadmap Phase Labels */
-        .phase-label { display: inline-block; background: var(--light-navy); color: var(--text-main); padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;}
-        .phase-active { background: rgba(212, 175, 55, 0.2); color: var(--gold); border: 1px solid var(--gold); }
-
-        /* Founder Section (Text Only Layout) */
-        .founder-container { display: flex; flex-direction: column; background: var(--card-navy); padding: 50px; border-radius: 12px; border: 1px solid var(--light-navy); max-width: 900px; margin: 0 auto; text-align: left; }
-        .founder-info h3 { font-size: 32px; color: #fff; margin-bottom: 5px; }
-        .founder-info h4 { font-size: 16px; color: var(--gold); margin-bottom: 25px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
-        .founder-info p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 20px; }
-        .founder-info p:last-child { margin-bottom: 0; }
-        .founder-highlights { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--light-navy); display: flex; gap: 20px; flex-wrap: wrap; }
-        .highlight-item { font-size: 14px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
-        .highlight-item span { color: var(--gold); font-size: 18px; }
+        /* Founder/About Section */
+        .founder-section { padding: 100px 8%; background: var(--navy); display: flex; align-items: center; gap: 50px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.05); }
+        .founder-content { flex: 1; min-width: 300px; }
+        .founder-content h2 { font-size: 36px; color: #fff; margin-bottom: 20px; font-weight: 900; }
+        .founder-content h2 span { color: var(--gold); }
+        .founder-content p { font-size: 18px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.8; }
+        .cred-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+        .cred-item { background: var(--card-navy); padding: 20px; border-radius: 6px; border-left: 3px solid var(--gold); }
+        .cred-item strong { color: #fff; display: block; margin-bottom: 5px; font-size: 16px; }
+        .cred-item span { color: var(--text-muted); font-size: 14px; }
 
         /* Footer */
-        footer { text-align: center; padding: 40px 8%; border-top: 1px solid var(--light-navy); color: var(--text-muted); font-size: 14px; }
+        footer { text-align: center; padding: 40px 8%; background: var(--card-navy); border-top: 1px solid var(--light-navy); color: var(--text-muted); font-size: 14px; }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 40px; }
             .nav-links { display: none; }
             .hero-btns { flex-direction: column; }
-            .founder-container { padding: 30px; }
+            .cred-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -85,17 +81,17 @@
     <nav>
         <div class="logo">SPORTZ-WELL<span>.</span></div>
         <div class="nav-links">
-            <a href="#platform">Technology</a>
-            <a href="#vision">Our Vision</a>
-            <a href="#founder">About</a>
+            <a href="#platform">Platform</a>
+            <a href="#expertise">Domain Expertise</a>
             <a href="https://sportz-well-demo.vercel.app/login.html" class="btn-nav" target="_blank" rel="noopener noreferrer">Client Login</a>
         </div>
     </nav>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Agentic Intelligence for <span>Athletic Performance.</span></h1>
-            <p>We transform raw athlete data into predictive, actionable insights using advanced AI-Powered Analytics. Stop guessing, start optimizing.</p>
+            <div class="badge">B2B ENTERPRISE SAAS</div>
+            <h1>Agentic Intelligence for <span>Cricket Academies.</span></h1>
+            <p>We transform raw athlete data into predictive, actionable insights using advanced AI-powered analytics. Stop guessing, start optimizing.</p>
             <div class="hero-btns">
                 <a href="#platform" class="btn-primary">Explore the Platform</a>
                 <a href="mailto:admin@sportzwell.com" class="btn-secondary">Request Demo Access</a>
@@ -103,70 +99,44 @@
         </div>
     </section>
 
-    <section id="platform" class="section-pad bg-card">
+    <section id="platform" class="features">
         <div class="section-header">
             <p>Core Technology</p>
-            <h2>AI-Powered Analytics Architecture</h2>
+            <h2>AI-Powered Architecture</h2>
         </div>
         <div class="grid">
             <div class="card">
                 <div class="card-icon">🧠</div>
                 <h3>Agentic Intelligence</h3>
-                <p>Our proprietary Agentic Intelligence engine autonomously tracks, analyzes, and categorizes athlete performance, flagging 'At Risk' players before they fall behind in their development.</p>
+                <p>Our proprietary AI engine autonomously tracks, analyzes, and categorizes athlete performance, flagging 'At Risk' players before they fall behind in their development.</p>
             </div>
             <div class="card">
                 <div class="card-icon">📊</div>
                 <h3>Dynamic Data Models</h3>
-                <p>Replace static spreadsheets with living databases. Our AI engine automatically recalculates squad averages, risk distribution, and historical trends instantly.</p>
+                <p>Replace static spreadsheets with living databases. The analytics engine automatically recalculates squad averages, risk distribution, and historical trends instantly.</p>
             </div>
             <div class="card">
                 <div class="card-icon">⚡</div>
                 <h3>Automated Compliance</h3>
-                <p>Instantly sort squads by age brackets and demographics, ensuring structural compliance and saving hours of administrative overhead for directors.</p>
+                <p>Instantly sort squads by age brackets (U12, U14, U16) ensuring tournament compliance and saving hours of administrative overhead for academy directors.</p>
             </div>
         </div>
     </section>
 
-    <section id="vision" class="section-pad">
-        <div class="section-header">
-            <p>Strategic Roadmap</p>
-            <h2>Scaling Pan-India Fitness Intelligence</h2>
-        </div>
-        <div class="grid">
-            <div class="card">
-                <div class="phase-label phase-active">Phase 1: Live MVP</div>
-                <h3>Precision Cricket Analytics</h3>
-                <p>Establishing our data foundation with specialized cricket academies. Providing coaches with deep-tier metrics on physical, mental, and technical skill acquisition to build the ultimate digital roster.</p>
-            </div>
-            <div class="card">
-                <div class="phase-label">Phase 2: Upcoming</div>
-                <h3>Multi-Sport Ecosystem</h3>
-                <p>Adapting our Agentic AI models to encompass football, athletics, and basketball. Creating a universal baseline for youth athletic development and standardizing sports intelligence across disciplines.</p>
-            </div>
-            <div class="card">
-                <div class="phase-label">Phase 3: Long Term</div>
-                <h3>Institutional Scale</h3>
-                <p>Deploying our intelligence infrastructure across Pan-India schools and corporate wellness programs. Transforming physical education from subjective grading to objective, data-driven health tracking.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="founder" class="section-pad bg-card">
-        <div class="section-header">
-            <p>Leadership</p>
-            <h2>Meet the Founders</h2>
-        </div>
-        <div class="founder-container">
-            <div class="founder-info">
-                <h3>Jitendra Sonu Jagdale</h3>
-                <h4>Founder & CEO, Sportz-Well</h4>
-                <p>Driven by a deep background in Mumbai cricket, we built Sportz-Well to bridge the gap between raw athletic potential and data-driven execution. Having trained at Shardashram Vidyalaya and shared the dressing room with <strong>Sachin Tendulkar</strong>, we understand the discipline required at the highest levels of the game.</p>
-                <p>With over 30 years of combined cricket experience within our leadership, we operate on a core belief: sports development is 80% mental toughness and 20% technique. By leveraging Agentic Intelligence, we are completely removing the guesswork from coaching. Our platform ensures that students learn discipline, resilience, and high-pressure decision-making, while creating real pathways for talented youth into competitive club and state-level teams.</p>
-                
-                <div class="founder-highlights">
-                    <div class="highlight-item"><span>🏆</span> Former Mumbai University Player</div>
-                    <div class="highlight-item"><span>👁️</span> Current MCA Match Observer</div>
-                    <div class="highlight-item"><span>🏏</span> 2x Times Shield Winner</div>
+    <section id="expertise" class="founder-section">
+        <div class="founder-content">
+            <h2>Built by Experts, <span>for Experts.</span></h2>
+            <p>Sportz-Well isn't built by generalist software developers guessing what coaches need. It is architected from the ground up based on 30 years of elite, on-ground cricketing experience.</p>
+            <p>We bridge the gap between traditional coaching intuition and modern data science.</p>
+            
+            <div class="cred-grid">
+                <div class="cred-item">
+                    <strong>30+ Years Experience</strong>
+                    <span>Former Mumbai University Player & MCA Match Observer</span>
+                </div>
+                <div class="cred-item">
+                    <strong>Elite Insights</strong>
+                    <span>Shared dressing rooms with legends like Sachin Tendulkar</span>
                 </div>
             </div>
         </div>
