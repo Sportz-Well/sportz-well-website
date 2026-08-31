@@ -3,323 +3,839 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sportz-Well | Player Development Intelligence for Grassroots Cricket</title>
-    <meta name="description" content="SWPI tracks every young cricketer's complete development journey — from school ground to academy squad. Monthly parent reports, performance benchmarking, and biomechanical video analysis for Indian cricket.">
+    <title>Sportz-Well | SWPI & SWOI — AI Sports Intelligence Platform for India</title>
+    <meta name="description" content="Sportz-Well delivers SWPI for player & coach performance intelligence, and SWOI for complete academy operations management. India's first AI-powered grassroots sports intelligence platform.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ========== DESIGN TOKENS ========== */
         :root {
-            --navy: #08172B;
-            --card-navy: #0F2240;
-            --light-navy: #1A3560;
-            --gold: #D4AF37;
-            --gold-light: #F0CC5A;
-            --green: #10B981;
-            --red: #EF4444;
-            --orange: #F97316;
-            --text-main: #E2EAF8;
-            --text-muted: #7A90B4;
+            --navy:        #060D1F;
+            --cobalt:      #0F2557;
+            --card:        #0d1f42;
+            --card2:       #111e3c;
+            --gold:        #D4AF37;
+            --gold-light:  #F0D060;
+            --orange:      #F97316;
+            --green:       #10B981;
+            --green-lt:    #34D399;
+            --blue:        #3B82F6;
+            --purple:      #8B5CF6;
+            --red:         #EF4444;
+            --text:        #F1F5F9;
+            --muted:       #94A3B8;
+            --border:      rgba(212,175,55,0.15);
+            --border-g:    rgba(16,185,129,0.2);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { background: var(--navy); color: var(--text-main); font-family: 'DM Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
-        h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
-
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 7%; position: fixed; width: 100%; top: 0; z-index: 200; background: rgba(8,23,43,0.94); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(212,175,55,0.12); }
-        .logo { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 900; color: #fff; letter-spacing: 2px; text-decoration: none; }
-        .logo span { color: var(--gold); }
-        .nav-links { display: flex; align-items: center; gap: 36px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--gold); }
-        .btn-nav { border: 1px solid var(--gold); color: var(--gold) !important; padding: 9px 22px; border-radius: 4px; font-weight: 600 !important; }
-        .btn-nav:hover { background: rgba(212,175,55,0.1) !important; }
-
-        .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 7% 80px; background: radial-gradient(ellipse 70% 60% at 70% 50%, rgba(212,175,55,0.04) 0%, transparent 60%); position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 55%; height: 100%; background: url("data:image/svg+xml,%3Csvg width='600' height='600' viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(212,175,55,0.04)' stroke-width='1'%3E%3Ccircle cx='300' cy='300' r='250'/%3E%3Ccircle cx='300' cy='300' r='200'/%3E%3Ccircle cx='300' cy='300' r='150'/%3E%3Ccircle cx='300' cy='300' r='100'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat; pointer-events: none; }
-        .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1300px; width: 100%; }
-        .live-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(16,185,129,0.1); color: var(--green); padding: 7px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; border: 1px solid rgba(16,185,129,0.25); margin-bottom: 28px; }
-        .live-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
-        .hero h1 { font-size: 54px; font-weight: 900; color: #fff; line-height: 1.08; margin-bottom: 24px; letter-spacing: -1px; }
-        .hero h1 em { color: var(--gold); font-style: normal; }
-        .hero-desc { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; max-width: 540px; line-height: 1.8; }
-        .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
-        .btn-gold { background: var(--gold); color: var(--navy); padding: 16px 34px; border-radius: 6px; text-decoration: none; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; }
-        .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(212,175,55,0.25); }
-        .btn-outline { background: transparent; color: #fff; padding: 16px 34px; border-radius: 6px; text-decoration: none; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; cursor: pointer; }
-        .btn-outline:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.04); }
-
-        .hero-stats { background: var(--card-navy); border: 1px solid rgba(212,175,55,0.2); border-radius: 16px; padding: 36px; position: relative; }
-        .hero-stats::before { content: 'PLATFORM SNAPSHOT'; position: absolute; top: -12px; left: 24px; background: var(--gold); color: var(--navy); font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 4px; letter-spacing: 1px; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
-        .stat-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 20px; }
-        .stat-value { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 900; color: var(--gold); line-height: 1; }
-        .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .stat-change { font-size: 12px; color: var(--green); font-weight: 600; margin-top: 4px; }
-        .pilot-callout { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); border-radius: 10px; padding: 18px; }
-        .pilot-callout-label { font-size: 11px; color: var(--green); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-        .pilot-callout-name { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: #fff; }
-        .pilot-callout-sub { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
-
-        section { padding: 96px 7%; }
-        .section-label { font-size: 12px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px; }
-        .section-title { font-size: 40px; font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 16px; }
-        .section-sub { font-size: 17px; color: var(--text-muted); max-width: 600px; line-height: 1.7; }
-        .centered { text-align: center; }
-        .centered .section-sub { margin: 0 auto 60px; }
-        .bg-card { background: var(--card-navy); }
-
-        .problem-section { background: var(--card-navy); }
-        .problem-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: start; }
-        .problem-text p { font-size: 17px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
-        .gap-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 28px; }
-        .gap-list li { display: flex; align-items: flex-start; gap: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); padding: 16px 18px; border-radius: 8px; font-size: 15px; color: var(--text-main); }
-        .gap-icon { font-size: 20px; flex-shrink: 0; }
-        .bio-img-wrap { position: relative; border-radius: 16px; overflow: hidden; border: 2px solid rgba(212,175,55,0.4); box-shadow: 0 0 40px rgba(212,175,55,0.12), 0 20px 60px rgba(0,0,0,0.5); }
-        .bio-img-wrap img { width: 100%; display: block; min-height: 420px; object-fit: cover; object-position: center top; }
-        .bio-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(8,23,43,0.97)); padding: 40px 24px 24px; }
-        .bio-tag { display: inline-block; background: var(--gold); color: var(--navy); font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 4px; margin-bottom: 8px; letter-spacing: 1px; }
-        .bio-caption { font-size: 14px; color: #fff; line-height: 1.5; }
-        .bio-caption span { color: var(--text-muted); font-size: 12px; display: block; margin-top: 3px; }
-
-        .pilot-section { background: linear-gradient(135deg, var(--card-navy), #0A1E3D); border-top: 1px solid rgba(212,175,55,0.1); border-bottom: 1px solid rgba(212,175,55,0.1); }
-        .pilot-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 70px; align-items: center; }
-        .school-card { background: var(--navy); border: 2px solid var(--gold); border-radius: 16px; padding: 40px; position: relative; }
-        .school-card::after { content: '✓ LAUNCH PILOT PARTNER'; position: absolute; top: -14px; right: 24px; background: var(--green); color: #fff; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 4px; letter-spacing: 1px; }
-        .school-name { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 900; color: var(--gold); line-height: 1.2; margin-bottom: 6px; }
-        .school-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
-        .school-stats { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
-        .school-stat { flex: 1; min-width: 70px; background: rgba(212,175,55,0.07); border-radius: 8px; padding: 14px; text-align: center; }
-        .school-stat-val { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 900; color: #fff; }
-        .school-stat-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-        .school-quote { background: rgba(16,185,129,0.07); border-left: 3px solid var(--green); padding: 16px 18px; border-radius: 0 8px 8px 0; font-size: 15px; color: var(--text-main); font-style: italic; line-height: 1.6; }
-        .pilot-content h2 { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 20px; }
-        .pilot-content h2 em { color: var(--gold); font-style: normal; }
-        .pilot-content p { font-size: 17px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
-        .pilot-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
-        .metric-pill { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); padding: 14px 16px; border-radius: 8px; }
-        .metric-icon { font-size: 20px; flex-shrink: 0; }
-        .metric-text strong { display: block; font-size: 14px; color: #fff; font-weight: 600; }
-        .metric-text span { font-size: 12px; color: var(--text-muted); }
-
-        .how-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 60px; }
-        .how-step { background: var(--card-navy); padding: 36px 28px; position: relative; transition: 0.3s; }
-        .how-step:first-child { border-radius: 12px 0 0 12px; }
-        .how-step:last-child { border-radius: 0 12px 12px 0; }
-        .how-step:hover { background: var(--light-navy); transform: translateY(-6px); z-index: 1; border-radius: 12px; }
-        .step-num { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 900; color: rgba(212,175,55,0.15); line-height: 1; margin-bottom: 16px; }
-        .step-icon { font-size: 28px; margin-bottom: 16px; display: block; }
-        .how-step h3 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
-        .how-step p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
-        .step-arrow { position: absolute; right: -14px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--navy); font-weight: 900; z-index: 2; }
-
-        .screen-showcase { background: var(--card-navy); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
-        .screen-header { background: var(--light-navy); padding: 14px 20px; display: flex; align-items: center; gap: 8px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot-r{background:#FF5F57}.dot-y{background:#FEBC2E}.dot-g{background:#28C840}
-        .screen-url { margin-left: 12px; background: rgba(0,0,0,0.3); border-radius: 4px; padding: 4px 14px; font-size: 12px; color: var(--text-muted); }
-        .screen-content { padding: 32px; }
-        .dash-mock { background: #08172B; border-radius: 10px; padding: 24px; border: 1px solid rgba(255,255,255,0.06); }
-        .dash-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-        .dash-logo-mock { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 900; color: var(--gold); }
-        .dash-academy-pill { background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); padding: 6px 14px; border-radius: 4px; font-size: 13px; color: var(--gold); }
-        .dash-nav-mock { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
-        .dash-btn { padding: 8px 16px; border-radius: 4px; font-size: 12px; font-weight: 700; border: none; font-family: 'Syne', sans-serif; }
-        .dash-btn-gold { background: var(--gold); color: var(--navy); }
-        .dash-btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--text-main); }
-        .dash-kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
-        .kpi-card { background: var(--card-navy); border-radius: 8px; padding: 16px; border: 1px solid rgba(255,255,255,0.05); }
-        .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
-        .kpi-value { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 900; color: var(--gold); }
-        .kpi-sub { font-size: 11px; color: var(--green); margin-top: 3px; }
-        .dash-chart-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; }
-        .chart-box { background: var(--card-navy); border-radius: 8px; padding: 18px; border: 1px solid rgba(255,255,255,0.05); }
-        .chart-title { font-size: 12px; font-weight: 700; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; }
-        .chart-bars { display: flex; align-items: flex-end; gap: 8px; height: 80px; }
-        .bar { background: rgba(212,175,55,0.3); border-radius: 4px 4px 0 0; flex: 1; position: relative; }
-        .bar span { position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); font-size: 9px; color: var(--text-muted); white-space: nowrap; }
-        .bar-last { background: var(--gold) !important; }
-        .donut-placeholder { width: 80px; height: 80px; border-radius: 50%; background: conic-gradient(var(--green) 0% 40%,var(--gold) 40% 65%,var(--red) 65% 100%); margin: 0 auto 10px; }
-        .donut-legend { font-size: 11px; color: var(--text-muted); text-align: center; }
-        .donut-legend div { display: flex; align-items: center; gap: 6px; justify-content: center; margin-bottom: 3px; }
-        .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
-
-        .locked-report { position: relative; border-radius: 12px; overflow: hidden; }
-        .report-blur { filter: blur(3px); opacity: 0.45; pointer-events: none; }
-        .report-lock-overlay { position: absolute; inset: 0; background: rgba(8,23,43,0.75); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px; }
-        .lock-icon { font-size: 40px; margin-bottom: 16px; }
-        .lock-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px; }
-        .lock-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; max-width: 300px; line-height: 1.6; }
-        .report-mock-inner { background: #08172B; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); overflow: hidden; }
-        .report-mock-header { background: linear-gradient(135deg,#08172B,#1E3A8A); padding: 24px; text-align: center; border-bottom: 3px solid var(--gold); }
-        .report-mock-brand { font-size: 12px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
-        .report-mock-name { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 900; color: #fff; }
-        .report-mock-sub { font-size: 13px; color: #E2E8F0; margin-top: 4px; margin-bottom: 14px; }
-        .report-verdict { display: inline-block; background: rgba(16,185,129,0.15); border: 1px solid var(--green); color: var(--green); padding: 7px 20px; border-radius: 50px; font-size: 13px; font-weight: 700; }
-        .report-kpi-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; padding: 16px; }
-        .r-kpi { background: var(--card-navy); border-radius: 8px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
-        .r-kpi-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 900; color: var(--gold); }
-        .r-kpi-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
-
-        .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 60px; }
-        .feat-card { background: var(--card-navy); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 32px; transition: 0.3s; position: relative; overflow: hidden; }
-        .feat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
-        .feat-card:hover { border-color: rgba(212,175,55,0.2); transform: translateY(-6px); }
-        .feat-card:hover::before { transform: scaleX(1); }
-        .feat-icon { font-size: 32px; margin-bottom: 18px; display: block; }
-        .feat-card h3 { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 700; color: #fff; margin-bottom: 10px; }
-        .feat-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
-        .feat-tag { display: inline-block; margin-top: 14px; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; }
-        .tag-live { background: rgba(16,185,129,0.1); color: var(--green); border: 1px solid rgba(16,185,129,0.2); }
-        .tag-soon { background: rgba(212,175,55,0.1); color: var(--gold); border: 1px solid rgba(212,175,55,0.2); }
-
-        .founder-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; align-items: center; }
-        .founder-card { background: var(--navy); border: 1px solid rgba(212,175,55,0.2); border-radius: 16px; padding: 36px; }
-        .founder-avatar { width: 72px; height: 72px; background: linear-gradient(135deg,var(--gold),#8B6914); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 900; color: var(--navy); margin-bottom: 18px; }
-        .founder-name { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; }
-        .founder-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 20px; }
-        .founder-creds { display: flex; flex-direction: column; gap: 12px; }
-        .cred-row { display: flex; gap: 12px; align-items: flex-start; }
-        .cred-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
-        .cred-text strong { display: block; font-size: 14px; color: #fff; font-weight: 600; margin-bottom: 2px; }
-        .cred-text span { font-size: 13px; color: var(--text-muted); }
-        .founder-text-col h2 { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 20px; }
-        .founder-text-col h2 em { color: var(--gold); font-style: normal; }
-        .founder-text-col p { font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 16px; }
-        .sachin-callout { background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.2); border-radius: 10px; padding: 20px 24px; margin-top: 24px; }
-        .sachin-callout p { font-size: 15px; color: var(--text-main); margin: 0; line-height: 1.6; }
-        .sachin-callout strong { color: var(--gold); }
-
-        .roadmap-track { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 60px; }
-        .roadmap-card { background: var(--card-navy); border-radius: 12px; padding: 32px; border: 1px solid rgba(255,255,255,0.06); transition: 0.3s; }
-        .roadmap-card:hover { border-color: rgba(212,175,55,0.2); transform: translateY(-6px); }
-        .roadmap-card.active { border-color: var(--green); background: rgba(16,185,129,0.05); }
-        .roadmap-num-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-        .roadmap-num { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 900; flex-shrink: 0; }
-        .rn-active{background:var(--green);color:#fff}.rn-next{background:rgba(212,175,55,0.15);color:var(--gold);border:2px solid rgba(212,175,55,0.3)}.rn-future{background:rgba(255,255,255,0.05);color:var(--text-muted);border:2px solid rgba(255,255,255,0.1)}
-        .roadmap-status { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-        .rs-live{color:var(--green)}.rs-next{color:var(--gold)}.rs-future{color:var(--text-muted)}
-        .roadmap-card h3 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px; }
-        .roadmap-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
-
-        .lead-section { background: linear-gradient(135deg,var(--card-navy),#0A1E3D); border-top: 1px solid rgba(212,175,55,0.1); }
-        .lead-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; max-width: 1200px; margin: 0 auto; }
-        .lead-text h2 { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 16px; }
-        .lead-text h2 em { color: var(--gold); font-style: normal; }
-        .lead-text p { font-size: 17px; color: var(--text-muted); line-height: 1.8; margin-bottom: 24px; }
-        .lead-reassurance { display: flex; flex-direction: column; gap: 10px; }
-        .reassure-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-muted); }
-        .reassure-item span:first-child { color: var(--green); font-size: 16px; }
-        .lead-form { background: var(--navy); border: 1px solid rgba(212,175,55,0.2); border-radius: 16px; padding: 40px; }
-        .lead-form h3 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-        .lead-form-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-        .form-group label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-        .form-group input, .form-group select { background: var(--card-navy); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 12px 16px; color: var(--text-main); font-size: 15px; font-family: 'DM Sans', sans-serif; transition: border-color 0.3s; width: 100%; }
-        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--gold); }
-        .form-group input::placeholder { color: var(--text-muted); }
-        .form-group select option { background: var(--card-navy); }
-        .form-submit { width: 100%; padding: 16px; background: var(--gold); color: var(--navy); border: none; border-radius: 6px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: 8px; }
-        .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212,175,55,0.25); }
-        .form-success { display: none; text-align: center; padding: 30px; }
-        .form-success .success-icon { font-size: 48px; margin-bottom: 16px; }
-        .form-success h4 { font-family: 'Syne', sans-serif; font-size: 22px; color: var(--green); margin-bottom: 10px; }
-        .form-success p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
-
-        footer { background: #060F1D; border-top: 1px solid rgba(255,255,255,0.05); padding: 40px 7%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-        .footer-logo { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 900; color: #fff; }
-        .footer-logo span { color: var(--gold); }
-        .footer-tagline { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-        .footer-links { display: flex; gap: 24px; }
-        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; transition: color 0.3s; }
-        .footer-links a:hover { color: var(--gold); }
-        .footer-right { font-size: 13px; color: var(--text-muted); text-align: right; }
-
-        @media(max-width:1100px){
-            .hero-inner,.pilot-inner,.founder-inner,.lead-inner,.problem-grid{grid-template-columns:1fr}
-            .how-grid{grid-template-columns:repeat(2,1fr);gap:16px}
-            .how-step{border-radius:12px!important}.step-arrow{display:none}
-            .features-grid{grid-template-columns:repeat(2,1fr)}
-            .roadmap-track{grid-template-columns:1fr}
-            .dash-kpi-grid{grid-template-columns:repeat(2,1fr)}
-            .form-row{grid-template-columns:1fr}
+        body {
+            background: var(--navy);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
-        @media(max-width:768px){
-            .hero h1{font-size:36px}.nav-links{display:none}
-            .features-grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr}
-            .section-title{font-size:28px}
-            footer{flex-direction:column;text-align:center}.footer-right{text-align:center}
-            .two-col-reports{grid-template-columns:1fr!important}
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeUp        { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes pulse         { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(.85);opacity:.6} }
+        @keyframes float         { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        @keyframes gradShift     { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+        /* Scroll reveal */
+        .reveal { opacity:0; transform:translateY(24px); transition:opacity .65s ease, transform .65s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar { width:6px; }
+        ::-webkit-scrollbar-track { background:var(--navy); }
+        ::-webkit-scrollbar-thumb { background:var(--gold); border-radius:3px; }
+
+        /* ========== NAV ========== */
+        nav {
+            position:fixed; top:0; left:0; right:0; z-index:999;
+            background:rgba(6,13,31,0.93); backdrop-filter:blur(20px);
+            border-bottom:1px solid var(--border);
+            padding:14px 5%;
+            display:flex; justify-content:space-between; align-items:center;
+        }
+        .nav-brand { display:flex; align-items:center; gap:12px; text-decoration:none; }
+        .nav-logo {
+            width:38px; height:38px;
+            background:linear-gradient(135deg,var(--gold),var(--orange));
+            border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            font-family:'Outfit',sans-serif; font-weight:900; font-size:13px; color:var(--navy);
+        }
+        .nav-wordmark { font-family:'Outfit',sans-serif; }
+        .nav-wordmark strong { font-size:15px; font-weight:800; color:var(--gold); letter-spacing:.5px; }
+        .nav-wordmark span  { display:block; font-size:10px; font-weight:400; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
+        .nav-links { display:flex; gap:4px; align-items:center; }
+        .nav-links a { color:var(--muted); text-decoration:none; font-size:13px; font-weight:500; padding:7px 13px; border-radius:6px; transition:.2s; }
+        .nav-links a:hover          { color:var(--gold); background:rgba(212,175,55,0.06); }
+        .nav-links a.swoi-nav       { color:var(--green-lt); }
+        .nav-links a.swoi-nav:hover { color:var(--green-lt); background:rgba(16,185,129,0.07); }
+        .nav-cta {
+            background:linear-gradient(135deg,var(--gold),var(--orange));
+            color:var(--navy); padding:9px 22px; border-radius:6px;
+            font-size:13px; font-weight:700; text-decoration:none;
+            transition:.2s; white-space:nowrap;
+        }
+        .nav-cta:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(212,175,55,.3); }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height:100vh; position:relative;
+            display:flex; align-items:center;
+            padding:120px 5% 80px; overflow:hidden;
+        }
+        .hero-bg {
+            position:absolute; inset:0;
+            background:
+                radial-gradient(ellipse at 18% 52%, rgba(15,37,87,.85) 0%, transparent 58%),
+                radial-gradient(ellipse at 82% 18%, rgba(16,185,129,.05) 0%, transparent 45%);
+        }
+        .hero-grid {
+            display:grid; grid-template-columns:1fr 1fr; gap:56px;
+            align-items:center; position:relative; z-index:2;
+            max-width:1300px; width:100%; margin:0 auto;
+        }
+        /* left */
+        .hero-badge {
+            display:inline-flex; align-items:center; gap:8px;
+            background:rgba(212,175,55,.1); border:1px solid rgba(212,175,55,.3);
+            padding:6px 16px; border-radius:30px;
+            font-size:11px; font-weight:700; color:var(--gold);
+            letter-spacing:2px; text-transform:uppercase; margin-bottom:24px;
+            animation:float 3s ease-in-out infinite;
+        }
+        .badge-dot { width:6px; height:6px; background:var(--gold); border-radius:50%; animation:pulse 1.5s infinite; }
+        .hero-title {
+            font-family:'Outfit',sans-serif;
+            font-size:clamp(36px,4.5vw,64px);
+            font-weight:900; line-height:1.05; margin-bottom:20px;
+        }
+        .hero-title .l1 { display:block; color:#fff; }
+        .hero-title .l2 {
+            display:block;
+            background:linear-gradient(90deg,var(--gold),var(--orange),var(--gold-light));
+            background-size:200% 100%;
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+            animation:gradShift 3s ease infinite;
+        }
+        .hero-sub { font-size:17px; color:#CBD5E1; line-height:1.75; margin-bottom:36px; max-width:520px; }
+        .hero-sub b.w { color:#fff; }
+        .hero-sub b.g { color:var(--green-lt); }
+        .hero-btns { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:48px; }
+        .btn-gold {
+            background:linear-gradient(135deg,var(--gold),var(--orange));
+            color:var(--navy); padding:14px 32px; border-radius:8px;
+            font-weight:800; font-size:14px; text-decoration:none;
+            transition:.2s; display:inline-flex; align-items:center; gap:8px;
+        }
+        .btn-gold:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(212,175,55,.35); }
+        .btn-ghost-green {
+            border:1.5px solid rgba(16,185,129,.5); color:var(--green-lt);
+            padding:14px 32px; border-radius:8px;
+            font-weight:700; font-size:14px; text-decoration:none;
+            transition:.2s; display:inline-flex; align-items:center; gap:8px;
+        }
+        .btn-ghost-green:hover { background:rgba(16,185,129,.08); transform:translateY(-2px); }
+        .hero-stats { display:flex; gap:30px; padding-top:28px; border-top:1px solid var(--border); flex-wrap:wrap; }
+        .hs .num { font-family:'Outfit',sans-serif; font-size:26px; font-weight:900; color:var(--gold); }
+        .hs .lbl { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-top:3px; }
+
+        /* right — product preview cards */
+        .hero-cards { display:flex; flex-direction:column; gap:18px; }
+        .pcard {
+            border-radius:16px; padding:28px 30px; position:relative; overflow:hidden;
+            transition:.3s;
+        }
+        .pcard::before {
+            content:''; position:absolute; top:0; left:0; right:0; height:3px;
+        }
+        .pcard-swpi { background:var(--card); border:1px solid rgba(212,175,55,.2); }
+        .pcard-swpi::before { background:linear-gradient(90deg,var(--gold),var(--orange),var(--gold-light)); background-size:200% 100%; animation:gradShift 3s ease infinite; }
+        .pcard-swpi:hover { transform:translateY(-4px); border-color:rgba(212,175,55,.4); box-shadow:0 20px 40px rgba(0,0,0,.3); }
+        .pcard-swoi { background:linear-gradient(145deg,#071f1a,#0a211c); border:1px solid rgba(16,185,129,.2); }
+        .pcard-swoi::before { background:linear-gradient(90deg,var(--green),#059669,var(--green-lt)); background-size:200% 100%; animation:gradShift 3s ease infinite; }
+        .pcard-swoi:hover { transform:translateY(-4px); border-color:rgba(16,185,129,.4); box-shadow:0 20px 40px rgba(0,0,0,.3); }
+        .pc-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+        .pc-label.gold { color:var(--gold); }
+        .pc-label.grn  { color:var(--green-lt); }
+        .pc-title { font-family:'Outfit',sans-serif; font-size:19px; font-weight:800; color:#fff; margin-bottom:6px; }
+        .pc-desc  { font-size:13px; color:var(--muted); line-height:1.55; margin-bottom:16px; }
+        .pc-list  { display:flex; flex-direction:column; gap:7px; }
+        .pc-item  { display:flex; align-items:center; gap:9px; font-size:12px; color:#CBD5E1; }
+        .pc-dot   { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+        .dot-gold { background:var(--gold); }
+        .dot-grn  { background:var(--green); }
+        .pc-pill  {
+            display:inline-block; margin-top:14px; padding:3px 11px; border-radius:20px;
+            font-size:10px; font-weight:700; letter-spacing:.5px;
+        }
+        .pill-gold { background:rgba(212,175,55,.15); color:var(--gold); border:1px solid rgba(212,175,55,.3); }
+        .pill-grn  { background:rgba(16,185,129,.15); color:var(--green-lt); border:1px solid rgba(16,185,129,.3); }
+
+        /* ========== SHARED SECTION STYLES ========== */
+        section { padding:90px 5%; }
+        .si { max-width:1300px; margin:0 auto; }          /* section-inner */
+        .divider { height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); margin:0 5%; }
+        .slabel {
+            font-size:11px; font-weight:700; color:var(--gold);
+            text-transform:uppercase; letter-spacing:3px;
+            margin-bottom:12px; display:flex; align-items:center; gap:10px;
+        }
+        .slabel::after { content:''; flex:1; max-width:40px; height:1px; background:var(--gold); opacity:.5; }
+        .slabel.grn       { color:var(--green-lt); }
+        .slabel.grn::after{ background:var(--green-lt); }
+        .slabel.center    { justify-content:center; }
+        .slabel.center::after { display:none; }
+        .stitle {
+            font-family:'Outfit',sans-serif;
+            font-size:clamp(26px,3.5vw,44px);
+            font-weight:800; line-height:1.15; margin-bottom:16px;
+        }
+        .sdesc { font-size:16px; color:var(--muted); max-width:600px; line-height:1.75; }
+        .tc { text-align:center; }
+        .tc .sdesc { margin:0 auto; }
+
+        /* ========== PROBLEM SECTION ========== */
+        .sec-problem { background:var(--card); }
+        .prob-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:60px; align-items:start; }
+        .prob-text p { font-size:16px; color:var(--muted); line-height:1.8; margin-bottom:18px; }
+        .gap-list { list-style:none; display:flex; flex-direction:column; gap:12px; margin-top:24px; }
+        .gap-list li {
+            display:flex; align-items:flex-start; gap:14px;
+            background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07);
+            padding:16px 18px; border-radius:8px; font-size:14px; color:var(--text);
+        }
+        .gi { font-size:20px; flex-shrink:0; }
+        .prob-visual { background:var(--card2); border:1px solid var(--border); border-radius:16px; padding:32px; }
+        .pv-row {
+            display:flex; align-items:center; gap:16px;
+            background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06);
+            border-radius:10px; padding:18px 20px; margin-bottom:14px;
+        }
+        .pv-icon { font-size:26px; flex-shrink:0; }
+        .pv-lbl  { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:3px; }
+        .pv-val  { font-family:'Outfit',sans-serif; font-size:22px; font-weight:900; color:var(--gold); }
+        .prob-quote {
+            background:rgba(212,175,55,.06); border-left:3px solid var(--gold);
+            padding:18px 20px; border-radius:0 8px 8px 0;
+            font-size:14px; color:#CBD5E1; font-style:italic; line-height:1.7;
+        }
+        .prob-quote-attr { margin-top:10px; font-size:12px; color:var(--gold); font-style:normal; font-weight:600; }
+
+        /* ========== SWPI SECTION ========== */
+        .sec-swpi { background:#060b1a; position:relative; }
+        .sec-swpi::before {
+            content:''; position:absolute; inset:0;
+            background:radial-gradient(ellipse at 80% 50%,rgba(15,37,87,.4) 0%,transparent 60%);
+            pointer-events:none;
+        }
+        /* tabs */
+        .tabs { display:flex; gap:8px; margin:30px 0 38px; flex-wrap:wrap; position:relative; z-index:1; }
+        .tbtn {
+            padding:10px 22px; border-radius:30px; border:1.5px solid var(--border);
+            background:transparent; color:var(--muted);
+            font-size:13px; font-weight:600; cursor:pointer; transition:.2s; font-family:'Inter',sans-serif;
+        }
+        .tbtn.active,.tbtn:hover {
+            background:linear-gradient(135deg,var(--gold),var(--orange));
+            color:var(--navy); border-color:transparent;
+        }
+        .tpanel { display:none; position:relative; z-index:1; }
+        .tpanel.active { display:grid; grid-template-columns:1fr 1fr; gap:20px; animation:fadeUp .4s ease; }
+        .fitem {
+            background:var(--card); border:1px solid var(--border); border-radius:12px;
+            padding:22px 24px; display:flex; gap:16px; align-items:flex-start; transition:.2s;
+        }
+        .fitem:hover { border-color:rgba(212,175,55,.35); background:var(--card2); }
+        .fdot { width:40px; height:40px; min-width:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+        .fitem h4 { font-size:14px; font-weight:700; color:#fff; margin-bottom:5px; }
+        .fitem p  { font-size:13px; color:var(--muted); line-height:1.5; }
+
+        /* ========== SWOI SECTION ========== */
+        .sec-swoi { background:linear-gradient(180deg,#060b1a 0%,#061812 100%); position:relative; }
+        .sec-swoi::before {
+            content:''; position:absolute; inset:0;
+            background:radial-gradient(ellipse at 20% 60%,rgba(16,185,129,.06) 0%,transparent 50%);
+            pointer-events:none;
+        }
+        .swoi-banner {
+            background:linear-gradient(135deg,#0a1f1a,#071e16);
+            border:1px solid rgba(16,185,129,.2); border-radius:20px;
+            padding:52px; text-align:center; margin-bottom:56px;
+            position:relative; overflow:hidden;
+        }
+        .swoi-banner::before {
+            content:''; position:absolute; top:0; left:0; right:0; height:3px;
+            background:linear-gradient(90deg,var(--green),#059669,var(--green-lt));
+            background-size:200% 100%; animation:gradShift 3s ease infinite;
+        }
+        .swoi-pill {
+            display:inline-flex; align-items:center; gap:8px;
+            background:rgba(16,185,129,.1); border:1px solid rgba(16,185,129,.3);
+            padding:5px 16px; border-radius:30px;
+            font-size:11px; font-weight:700; color:var(--green-lt);
+            letter-spacing:2px; text-transform:uppercase; margin-bottom:20px;
+        }
+        .swoi-banner h2 {
+            font-family:'Outfit',sans-serif;
+            font-size:clamp(26px,3vw,42px); font-weight:900; color:#fff;
+            line-height:1.2; margin-bottom:14px;
+        }
+        .swoi-banner h2 em { color:var(--green-lt); font-style:normal; }
+        .swoi-banner p { font-size:16px; color:var(--muted); max-width:580px; margin:0 auto; line-height:1.75; }
+        .swoi-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; position:relative; z-index:1; }
+        .scard {
+            background:var(--card); border:1px solid rgba(16,185,129,.15);
+            border-radius:14px; padding:28px 30px; transition:.3s; position:relative; overflow:hidden;
+        }
+        .scard::before {
+            content:''; position:absolute; top:0; left:0; right:0; height:2px;
+            background:linear-gradient(90deg,transparent,var(--green),transparent);
+            opacity:0; transition:.3s;
+        }
+        .scard:hover { transform:translateY(-4px); border-color:rgba(16,185,129,.4); box-shadow:0 20px 40px rgba(0,0,0,.3); }
+        .scard:hover::before { opacity:1; }
+        .scard-icon { font-size:34px; margin-bottom:14px; }
+        .scard h3 { font-size:17px; font-weight:700; color:#fff; margin-bottom:10px; }
+        .scard p  { font-size:14px; color:var(--muted); line-height:1.65; }
+
+        /* ========== SECURITY ========== */
+        .sec-security { background:linear-gradient(135deg,#060D1F 0%,#08152e 100%); }
+        .sec-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:50px; align-items:start; }
+        .sec-visual {
+            background:var(--card); border:1px solid var(--border); border-radius:16px;
+            padding:40px; text-align:center;
+        }
+        .sv-icon { font-size:60px; margin-bottom:18px; }
+        .sv-title { font-family:'Outfit',sans-serif; font-size:19px; font-weight:800; color:var(--gold); margin-bottom:8px; }
+        .sv-desc  { font-size:14px; color:var(--muted); line-height:1.65; margin-bottom:24px; }
+        .sec-note {
+            background:rgba(16,185,129,.08); border:1px solid rgba(16,185,129,.25);
+            border-radius:10px; padding:16px 20px; font-size:13px; color:#6EE7B7; line-height:1.65;
+        }
+        .sec-pillars { display:flex; flex-direction:column; gap:16px; }
+        .spillar {
+            background:var(--card); border:1px solid var(--border); border-radius:12px;
+            padding:20px 22px; display:flex; gap:16px; align-items:flex-start; transition:.2s;
+        }
+        .spillar:hover { border-color:rgba(212,175,55,.4); transform:translateX(4px); }
+        .sp-icon {
+            width:44px; height:44px; min-width:44px; border-radius:10px;
+            background:rgba(212,175,55,.1); border:1px solid rgba(212,175,55,.2);
+            display:flex; align-items:center; justify-content:center; font-size:20px;
+        }
+        .spillar h4 { font-size:14px; font-weight:700; color:#fff; margin-bottom:4px; }
+        .spillar p  { font-size:13px; color:var(--muted); line-height:1.55; }
+
+        /* ========== PHASES ========== */
+        .sec-phases { background:#060b1a; }
+        .phases-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:50px; }
+        .phase {
+            border-radius:16px; padding:32px 26px;
+            position:relative; overflow:hidden;
+            border:1px solid transparent; transition:.3s;
+        }
+        .phase:hover { transform:translateY(-6px); }
+        .phase.p1 { background:linear-gradient(145deg,#0d1e40,#112240); border-color:rgba(212,175,55,.3); }
+        .phase.p2 { background:linear-gradient(145deg,#0d1a30,#0f2040); border-color:rgba(59,130,246,.3); }
+        .phase.p3 { background:linear-gradient(145deg,#1a0d30,#200f3d); border-color:rgba(139,92,246,.3); }
+        .ph-num {
+            font-family:'Outfit',sans-serif; font-size:62px; font-weight:900;
+            line-height:1; opacity:.07; position:absolute; top:10px; right:20px;
+        }
+        .ph-badge {
+            display:inline-block; padding:4px 12px; border-radius:20px;
+            font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:18px;
+        }
+        .p1 .ph-badge { background:rgba(212,175,55,.15); color:var(--gold); }
+        .p2 .ph-badge { background:rgba(59,130,246,.15); color:#60A5FA; }
+        .p3 .ph-badge { background:rgba(139,92,246,.15); color:#A78BFA; }
+        .phase h3 { font-family:'Outfit',sans-serif; font-size:20px; font-weight:800; color:#fff; margin-bottom:16px; }
+        .ph-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+        .ph-list li { display:flex; align-items:flex-start; gap:9px; font-size:13px; color:#CBD5E1; line-height:1.4; }
+        .p1 .ph-list li::before { content:'✓'; color:var(--green);  font-weight:700; font-size:12px; min-width:14px; }
+        .p2 .ph-list li::before { content:'✓'; color:#60A5FA;       font-weight:700; font-size:12px; min-width:14px; }
+        .p3 .ph-list li::before { content:'✓'; color:#A78BFA;       font-weight:700; font-size:12px; min-width:14px; }
+
+        /* ========== MULTI-SPORT ========== */
+        .sec-sports { background:linear-gradient(180deg,#060b1a 0%,var(--navy) 100%); }
+        .sports-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+        .sport-row {
+            background:var(--card); border:1px solid var(--border); border-radius:12px;
+            padding:20px 22px; display:flex; align-items:center; gap:18px;
+            transition:.3s; margin-bottom:14px;
+        }
+        .sport-row:last-child { margin-bottom:0; }
+        .sport-row:hover { border-color:rgba(212,175,55,.4); transform:translateX(4px); }
+        .si-box {
+            width:50px; height:50px; min-width:50px; border-radius:12px;
+            display:flex; align-items:center; justify-content:center; font-size:24px;
+        }
+        .sport-info h4 { font-size:16px; font-weight:700; color:#fff; margin-bottom:3px; }
+        .sport-info p  { font-size:13px; color:var(--muted); }
+        .sport-badge {
+            margin-left:auto; padding:4px 12px; border-radius:20px;
+            font-size:10px; font-weight:700; letter-spacing:1px; white-space:nowrap;
+        }
+        .sl { background:rgba(16,185,129,.15); color:#34D399; border:1px solid rgba(16,185,129,.3); }
+        .ss { background:rgba(59,130,246,.15); color:#60A5FA; border:1px solid rgba(59,130,246,.3); }
+        .sf { background:rgba(139,92,246,.15); color:#A78BFA; border:1px solid rgba(139,92,246,.3); }
+
+        /* ========== FOUNDER ========== */
+        .sec-founder { background:#060b1a; }
+        .founder-inner {
+            display:grid; grid-template-columns:1fr 1.2fr; gap:70px;
+            align-items:center; max-width:1100px; margin:50px auto 0;
+        }
+        .founder-card {
+            background:var(--navy); border:1px solid rgba(212,175,55,.2);
+            border-radius:16px; padding:36px;
+        }
+        .founder-av {
+            width:72px; height:72px;
+            background:linear-gradient(135deg,var(--gold),#8B6914);
+            border-radius:50%; display:flex; align-items:center; justify-content:center;
+            font-family:'Outfit',sans-serif; font-size:26px; font-weight:900; color:var(--navy);
+            margin-bottom:18px;
+        }
+        .founder-name  { font-family:'Outfit',sans-serif; font-size:22px; font-weight:900; color:#fff; margin-bottom:4px; }
+        .founder-role  { font-size:13px; color:var(--gold); font-weight:600; margin-bottom:20px; }
+        .creds         { display:flex; flex-direction:column; gap:12px; }
+        .cred-row      { display:flex; gap:12px; align-items:flex-start; }
+        .cred-ico      { font-size:18px; flex-shrink:0; margin-top:2px; }
+        .cred-body strong { display:block; font-size:14px; color:#fff; font-weight:600; margin-bottom:2px; }
+        .cred-body span   { font-size:13px; color:var(--muted); }
+        .founder-col h2 {
+            font-family:'Outfit',sans-serif; font-size:clamp(24px,2.5vw,36px);
+            font-weight:900; color:#fff; line-height:1.15; margin-bottom:20px;
+        }
+        .founder-col h2 em { color:var(--gold); font-style:normal; }
+        .founder-col p { font-size:15px; color:var(--muted); line-height:1.8; margin-bottom:16px; }
+        .mission-callout {
+            background:rgba(212,175,55,.08); border:1px solid rgba(212,175,55,.2);
+            border-radius:10px; padding:20px 24px; margin-top:24px;
+        }
+        .mission-callout p { font-size:14px; color:var(--text); margin:0; line-height:1.65; }
+        .mission-callout strong { color:var(--gold); }
+
+        /* ========== LEAD / DEMO FORM ========== */
+        .sec-demo { background:linear-gradient(135deg,var(--card),#0A1E3D); border-top:1px solid var(--border); }
+        .demo-grid { display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; max-width:1200px; margin:0 auto; }
+        .demo-text h2 { font-family:'Outfit',sans-serif; font-size:clamp(26px,3vw,40px); font-weight:900; color:#fff; line-height:1.15; margin-bottom:16px; }
+        .demo-text h2 em { color:var(--gold); font-style:normal; }
+        .demo-text p { font-size:16px; color:var(--muted); line-height:1.8; margin-bottom:24px; }
+        .reassure { display:flex; flex-direction:column; gap:10px; }
+        .ri { display:flex; align-items:center; gap:10px; font-size:14px; color:var(--muted); }
+        .ri .chk { color:var(--green-lt); font-size:16px; }
+        .demo-form { background:var(--navy); border:1px solid rgba(212,175,55,.2); border-radius:16px; padding:40px; }
+        .demo-form h3 { font-family:'Outfit',sans-serif; font-size:22px; font-weight:700; color:#fff; margin-bottom:6px; }
+        .form-sub { font-size:14px; color:var(--muted); margin-bottom:28px; }
+        .frow { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .fg { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+        .fg label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; }
+        .fg input,.fg select {
+            background:var(--card); border:1px solid rgba(255,255,255,.1);
+            border-radius:6px; padding:12px 16px; color:var(--text);
+            font-size:15px; font-family:'Inter',sans-serif; transition:border-color .3s; width:100%;
+        }
+        .fg input:focus,.fg select:focus { outline:none; border-color:var(--gold); }
+        .fg input::placeholder { color:var(--muted); }
+        .fg select option { background:var(--card); }
+        .form-btn {
+            width:100%; padding:16px;
+            background:linear-gradient(135deg,var(--gold),var(--orange));
+            color:var(--navy); border:none; border-radius:6px;
+            font-family:'Outfit',sans-serif; font-weight:700; font-size:16px;
+            cursor:pointer; transition:.3s; margin-top:8px; letter-spacing:.3px;
+        }
+        .form-btn:hover { transform:translateY(-2px); box-shadow:0 10px 25px rgba(212,175,55,.3); }
+        .form-success { display:none; text-align:center; padding:32px; }
+        .form-success .ok-icon { font-size:48px; margin-bottom:16px; }
+        .form-success h4 { font-family:'Outfit',sans-serif; font-size:22px; color:var(--green); margin-bottom:10px; }
+        .form-success p { font-size:15px; color:var(--muted); line-height:1.65; }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background:#03080f; border-top:1px solid rgba(255,255,255,.04);
+            padding:30px 5%;
+            display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
+        }
+        .f-brand { font-family:'Outfit',sans-serif; }
+        .f-brand strong { font-size:16px; font-weight:900; color:var(--gold); }
+        .f-brand span { display:block; font-size:11px; color:var(--muted); margin-top:3px; }
+        .f-links { display:flex; gap:20px; }
+        .f-links a { color:var(--muted); text-decoration:none; font-size:13px; transition:.2s; }
+        .f-links a:hover { color:var(--gold); }
+        .f-right { font-size:12px; color:var(--muted); text-align:right; line-height:1.8; }
+
+        /* ========== RESPONSIVE ========== */
+        @media(max-width:1024px) {
+            .hero-grid,.prob-grid,.sec-grid,.sports-grid,.founder-inner,.demo-grid { grid-template-columns:1fr; }
+            .phases-grid { grid-template-columns:1fr; }
+            .swoi-grid { grid-template-columns:1fr; }
+            .tpanel.active { grid-template-columns:1fr; }
+        }
+        @media(max-width:768px) {
+            nav { padding:12px 5%; }
+            .nav-links { display:none; }
+            section { padding:60px 5%; }
+            .hero { padding:100px 5% 60px; }
+            .hero-stats { gap:16px; }
+            .phases-grid { grid-template-columns:1fr; }
+            footer { flex-direction:column; gap:12px; text-align:center; }
+            .f-right { text-align:center; }
         }
     </style>
 </head>
 <body>
 
+<!-- ================================================ NAV -->
 <nav>
-    <a href="/" class="logo">SPORTZ-WELL<span>.</span></a>
+    <a href="#hero" class="nav-brand">
+        <div class="nav-logo">SW</div>
+        <div class="nav-wordmark">
+            <strong>SPORTZ-WELL</strong>
+            <span>Sports Intelligence</span>
+        </div>
+    </a>
     <div class="nav-links">
-        <a href="#problem">The Problem</a>
-        <a href="#product">Platform</a>
-        <a href="#pilot">Pilot Partner</a>
+        <a href="#swpi">SWPI</a>
+        <a href="#swoi" class="swoi-nav">SWOI</a>
+        <a href="#swpi">Features</a>
+        <a href="#roadmap">Roadmap</a>
         <a href="#founder">About</a>
-        <a href="#demo" class="btn-nav">Request a Demo</a>
+        <a href="https://app.sportz-well.com" target="_blank" rel="noopener">Coach Login</a>
     </div>
+    <a href="#demo" class="nav-cta">Request Demo &rarr;</a>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-    <div class="hero-inner">
+<!-- ================================================ HERO -->
+<section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid">
+
+        <!-- Left -->
         <div>
-            <div class="live-badge"><span class="live-dot"></span>Platform Live · Pilot Running — Singhania School, Thane</div>
-            <h1>Every Young Cricketer<br>Deserves a <em>Performance</em><br><em>Record.</em></h1>
-            <p class="hero-desc">SWPI is the first dedicated platform that tracks a young cricketer's complete development journey — from school ground to academy squad — and puts that intelligence directly in the hands of coaches and parents.</p>
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                AI Sports Intelligence &nbsp;&middot;&nbsp; India &nbsp;&middot;&nbsp; 2026
+            </div>
+            <h1 class="hero-title">
+                <span class="l1">Built for Athletes.</span>
+                <span class="l2">Built for Academies.</span>
+            </h1>
+            <p class="hero-sub">
+                <b class="w">SWPI</b> tracks every player's complete performance journey
+                with AI-powered biomechanics and precision analytics.
+                <b class="g">SWOI</b> runs every part of your academy's operations —
+                students, fees, attendance, and growth. One ecosystem. Every sport.
+            </p>
             <div class="hero-btns">
-                <a href="#demo" class="btn-gold">📋 Request a Demo</a>
-                <a href="#product" class="btn-outline">See How It Works</a>
+                <a href="#swpi" class="btn-gold">Explore SWPI &rarr;</a>
+                <a href="#swoi" class="btn-ghost-green">Explore SWOI</a>
             </div>
-        </div>
-        <div>
             <div class="hero-stats">
-                <div class="stats-grid">
-                    <div class="stat-item"><div class="stat-value">12</div><div class="stat-label">Players Tracked Live</div><div class="stat-change">↑ Singhania Pilot</div></div>
-                    <div class="stat-item"><div class="stat-value">7.8</div><div class="stat-label">Avg Squad Score /10</div><div class="stat-change">↑ +1.2 this month</div></div>
-                    <div class="stat-item"><div class="stat-value">92%</div><div class="stat-label">Attendance Rate</div><div class="stat-change">↑ Above benchmark</div></div>
-                    <div class="stat-item"><div class="stat-value">100%</div><div class="stat-label">Parents Receive Reports</div><div class="stat-change">↑ Monthly, every player</div></div>
+                <div class="hs"><div class="num">AI</div><div class="lbl">Biomechanical Analysis</div></div>
+                <div class="hs"><div class="num">33</div><div class="lbl">Body Landmarks Tracked</div></div>
+                <div class="hs"><div class="num">3&times;</div><div class="lbl">Monthly Assessments</div></div>
+                <div class="hs"><div class="num">100%</div><div class="lbl">Parent Report Delivery</div></div>
+            </div>
+        </div>
+
+        <!-- Right — product preview cards -->
+        <div class="hero-cards">
+            <div class="pcard pcard-swpi">
+                <div class="pc-label gold">SWPI &mdash; Performance Intelligence</div>
+                <div class="pc-title">For Players &amp; Coaches</div>
+                <div class="pc-desc">AI-powered biomechanics, monthly assessments, and complete player development tracking &mdash; from school ground to academy squad.</div>
+                <div class="pc-list">
+                    <div class="pc-item"><span class="pc-dot dot-gold"></span>AI Video &amp; Biomechanical Analysis</div>
+                    <div class="pc-item"><span class="pc-dot dot-gold"></span>Monthly Performance Reports</div>
+                    <div class="pc-item"><span class="pc-dot dot-gold"></span>Match Logger &amp; Annual Journey Report</div>
+                    <div class="pc-item"><span class="pc-dot dot-gold"></span>Reports in English, Hindi &amp; Marathi</div>
                 </div>
-                <div class="pilot-callout">
-                    <div class="pilot-callout-label">🏏 Launch Pilot Partner</div>
-                    <div class="pilot-callout-name">Smt. Sulochanadevi Singhania School</div>
-                    <div class="pilot-callout-sub">Cricket Academy · Thane, Maharashtra</div>
+                <div class="pc-pill pill-gold">&#9679; LIVE NOW</div>
+            </div>
+            <div class="pcard pcard-swoi">
+                <div class="pc-label grn">SWOI &mdash; Operations Intelligence</div>
+                <div class="pc-title">For Academy Owners</div>
+                <div class="pc-desc">Complete academy management &mdash; students, batches, fees, and attendance &mdash; intelligently managed in one place. No spreadsheets. No guesswork.</div>
+                <div class="pc-list">
+                    <div class="pc-item"><span class="pc-dot dot-grn"></span>Student &amp; Batch Operations</div>
+                    <div class="pc-item"><span class="pc-dot dot-grn"></span>Automated Attendance &amp; Fee Tracking</div>
+                    <div class="pc-item"><span class="pc-dot dot-grn"></span>Owner Business Intelligence Dashboard</div>
+                    <div class="pc-item"><span class="pc-dot dot-grn"></span>Collection Health &amp; Revenue Analytics</div>
+                </div>
+                <div class="pc-pill pill-grn">&#9679; COMING SOON</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================================================ THE PROBLEM -->
+<section class="sec-problem" id="problem">
+    <div class="si">
+        <div class="prob-grid">
+            <div class="prob-text">
+                <div class="slabel">The Gap We Are Closing</div>
+                <h2 class="stitle">Thousands of young cricketers.<br>Zero development records.</h2>
+                <p>Every year in India, millions of boys and girls play cricket in schools, clubs, and academies. Most will never have a single document showing how they developed, what they were coached on, or what their potential looked like at age 12.</p>
+                <p>This is not because coaches don&rsquo;t care. It&rsquo;s because no structured system existed that was built specifically for grassroots-level cricket.</p>
+                <ul class="gap-list">
+                    <li><span class="gi">📋</span>Coaches track attendance on paper registers or WhatsApp groups &mdash; data that vanishes every season.</li>
+                    <li><span class="gi">👪</span>Parents pay academy fees but receive no formal report on their child&rsquo;s progress.</li>
+                    <li><span class="gi">📊</span>Academies cannot identify which players are improving, plateauing, or at risk of dropping out.</li>
+                    <li><span class="gi">🎥</span>Technique flaws go uncorrected for months because no structured video review process exists at this level.</li>
+                </ul>
+            </div>
+            <div class="prob-visual reveal">
+                <div class="pv-row">
+                    <div class="pv-icon">📋</div>
+                    <div>
+                        <div class="pv-lbl">Player Development Records &mdash; Grassroots India</div>
+                        <div class="pv-val" style="color:var(--red);">Zero for most</div>
+                    </div>
+                </div>
+                <div class="pv-row">
+                    <div class="pv-icon">📈</div>
+                    <div>
+                        <div class="pv-lbl">With SWPI &mdash; Monthly Reports Delivered</div>
+                        <div class="pv-val">100%</div>
+                    </div>
+                </div>
+                <div class="pv-row">
+                    <div class="pv-icon">🎯</div>
+                    <div>
+                        <div class="pv-lbl">AI Biomechanical Body Landmarks Tracked</div>
+                        <div class="pv-val">33-point</div>
+                    </div>
+                </div>
+                <div class="prob-quote">
+                    &ldquo;Every elite cricketer India has produced had someone who believed in their potential early. SWPI gives every coach the data to find those players &mdash; and every player the record to prove their worth.&rdquo;
+                    <div class="prob-quote-attr">&mdash; Jitendra S Jagdale, Founder &amp; CEO</div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- THE PROBLEM -->
-<section id="problem" class="problem-section">
-    <div class="problem-grid">
-        <div class="problem-text">
-            <div class="section-label">The Gap We Are Closing</div>
-            <div class="section-title">Thousands of young cricketers. Zero development records.</div>
-            <p>Every year in India, millions of boys and girls play cricket in schools, clubs, and academies. Most will never have a single document showing how they developed, what they were coached on, or what their potential looked like at age 12.</p>
-            <p>This is not because coaches don't care. It's because no structured system existed that was built specifically for grassroots-level cricket.</p>
-            <ul class="gap-list">
-                <li><span class="gap-icon">📋</span>Coaches track attendance on paper registers or WhatsApp groups — data that vanishes every season.</li>
-                <li><span class="gap-icon">👪</span>Parents pay academy fees but receive no formal report on their child's progress.</li>
-                <li><span class="gap-icon">📊</span>Academies cannot identify which players are improving, plateauing, or at risk of dropping out.</li>
-                <li><span class="gap-icon">🎥</span>Technique flaws go uncorrected for months because no structured video review process exists at this level.</li>
-            </ul>
+<div class="divider"></div>
+
+<!-- ================================================ SWPI FEATURES -->
+<section class="sec-swpi" id="swpi">
+    <div class="si" style="position:relative;z-index:1;">
+        <div class="slabel">SWPI &mdash; Performance Intelligence</div>
+        <h2 class="stitle">What Every Player &amp; Coach Gets</h2>
+        <p class="sdesc">A complete performance intelligence ecosystem &mdash; from daily attendance logging to AI-generated annual reports &mdash; built for the grassroots cricketer.</p>
+
+        <div class="tabs">
+            <button class="tbtn active" onclick="showTab('monthly',this)">Monthly Assessments</button>
+            <button class="tbtn" onclick="showTab('report',this)">Performance Reports</button>
+            <button class="tbtn" onclick="showTab('video',this)">Video Analysis</button>
+            <button class="tbtn" onclick="showTab('annual',this)">Yearly Reports</button>
+            <button class="tbtn" onclick="showTab('hub',this)">Opportunities Hub &middot; Preview</button>
         </div>
-        <div>
-            <div class="bio-img-wrap">
-                <img src="data:image/png;base64,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" alt="SWPI biomechanical skeleton analysis — athlete running with joint tracking overlay" />
-                <div class="bio-overlay">
-                    <span class="bio-tag">BIOMECHANICAL ANALYSIS — LIVE CAPABILITY</span>
-                    <div class="bio-caption">
-                        Skeleton joint tracking applied to a real athlete during sprint analysis.
-                        <span>SWPI generates a complete biomechanical profile from standard video footage — no specialist equipment needed.</span>
+
+        <!-- Tab: Monthly -->
+        <div class="tpanel active" id="tab-monthly">
+            <div class="fitem reveal">
+                <div class="fdot" style="background:rgba(212,175,55,.12);">⚙️</div>
+                <div><h4>Technical Execution Parameters</h4><p>Scientifically measured batting stance, stroke mechanics, bowling action, and fielding technique scores tracked every session.</p></div>
+            </div>
+            <div class="fitem reveal">
+                <div class="fdot" style="background:rgba(16,185,129,.12);">💪</div>
+                <div><h4>Physical Fitness &amp; Conditioning</h4><p>Stamina, agility, and strength indicators tracked monthly to identify overtraining, fatigue, or injury risk before problems arise.</p></div>
+            </div>
+            <div class="fitem reveal">
+                <div class="fdot" style="background:rgba(249,115,22,.12);">🏏</div>
+                <div><h4>Match Performance &amp; Impact Scores</h4><p>Practice and tournament match data &mdash; runs, wickets, dismissal types &mdash; aggregated into an overall impact score per month.</p></div>
+            </div>
+            <div class="fitem reveal">
+                <div class="fdot" style="background:rgba(139,92,246,.12);">🧠</div>
+                <div><h4>Mental Strength &amp; Focus Mapping</h4><p>Coach-assessed mental attributes including concentration under pressure, decision-making speed, and composure in critical match moments.</p></div>
+            </div>
+        </div>
+
+        <!-- Tab: Reports -->
+        <div class="tpanel" id="tab-report">
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(212,175,55,.12);">📊</div>
+                <div><h4>Holistic 30-Day View</h4><p>Aggregated points from all 3 monthly assessments combined into a single, easy-to-understand performance score with trend indicators.</p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(16,185,129,.12);">✅</div>
+                <div><h4>Attendance &amp; Workload Tracking</h4><p>Attendance percentage, session intensity heatmaps, and cumulative workload tracking to maintain optimal training loads.</p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(249,115,22,.12);">🎙️</div>
+                <div><h4>Coach Remarks &amp; Voice Notes</h4><p>Personalised written and voice-recorded coach remarks automatically embedded into each player&rsquo;s monthly report &mdash; available in English and local language.</p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(59,130,246,.12);">🎯</div>
+                <div><h4>Custom Drill Planner</h4><p>AI-generated training drills tailored specifically to each player&rsquo;s identified weaknesses from their assessment data.</p></div>
+            </div>
+        </div>
+
+        <!-- Tab: Video -->
+        <div class="tpanel" id="tab-video">
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(212,175,55,.12);">🎬</div>
+                <div><h4>High Frame-Rate Slow Motion</h4><p>Side-on slow-motion video capture &mdash; the one angle from which knee, elbow, and arm-extension measurements are scientifically valid. We deliberately do not offer angles the analysis cannot support.</p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(16,185,129,.12);">🦴</div>
+                <div><h4>AI Biomechanical Skeleton Overlay</h4><p>Real-time 33-point skeletal mapping using MediaPipe AI calculates knee angles, arm extension ratios, and identifies technique deviations automatically.</p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(249,115,22,.12);">🌐</div>
+                <div><h4>3D 360&deg; Rotational Mapping</h4><p>Three-dimensional body position capture allows coaches to rotate the virtual skeleton and inspect technique from any angle. <em style="color:#60A5FA;">(In development)</em></p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(139,92,246,.12);">📺</div>
+                <div><h4>Big Screen Group Analysis</h4><p>Project video analyses on classroom screens for group coaching sessions with slow-motion playback and overlaid biomechanical data.</p></div>
+            </div>
+        </div>
+
+        <!-- Tab: Annual -->
+        <div class="tpanel" id="tab-annual">
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(212,175,55,.12);">🔮</div>
+                <div><h4>Predictive Analytics</h4><p>AI synthesizes 12 months of data to project growth trajectories, identify peak performance windows, and flag players ready for talent selection trials.</p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(16,185,129,.12);">📈</div>
+                <div><h4>YTD Match Statistics</h4><p>Cumulative runs and wickets across all practice and tournament matches, batting averages, bowling economies, and dismissal pattern breakdowns for the full year.</p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(249,115,22,.12);">🗺️</div>
+                <div><h4>Strategic Roadmap &amp; Goal-Setting</h4><p>AI-generated development roadmap for the next season including target scores, skill milestones, and recommended selection pathways.</p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(59,130,246,.12);">🏅</div>
+                <div><h4>Annual Highlight Reel</h4><p>Curated compilation of the player&rsquo;s best performances, technical breakthroughs, and coaching milestones from the year.</p></div>
+            </div>
+        </div>
+
+        <!-- Tab: Hub -->
+        <div class="tpanel" id="tab-hub">
+            <div class="fitem" style="border-left:3px solid #60A5FA;padding-left:14px;">
+                <div class="fdot" style="background:rgba(59,130,246,.12);">🧭</div>
+                <div><h4>A preview of what is coming next</h4><p style="color:#60A5FA;">The Opportunities Hub is visible in the platform today as a working preview with sample listings. Live tournament data and alerts are in development &mdash; we will not describe it as live until it is.</p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(212,175,55,.12);">🏟️</div>
+                <div><h4>Mumbai &amp; Pune Tournament Listings</h4><p>Curated listings of age-group tournaments, selection trials, and talent scouting camps across your primary market. <em style="color:#60A5FA;">(In development)</em></p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(16,185,129,.12);">🔔</div>
+                <div><h4>Selection Trial Alerts</h4><p>Targeted alerts for MCA zonal trials, district selections, and BCCI age-group camps relevant to each player&rsquo;s age group and skill level. <em style="color:#60A5FA;">(In development)</em></p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(249,115,22,.12);">⭐</div>
+                <div><h4>Talent Scout Notices</h4><p>As our scouting network grows, top performers&rsquo; profiles can be surfaced to verified talent scouts &mdash; only ever with explicit academy and parent consent, never by default. <em style="color:#60A5FA;">(In development)</em></p></div>
+            </div>
+            <div class="fitem">
+                <div class="fdot" style="background:rgba(139,92,246,.12);">📢</div>
+                <div><h4>Coach Announcements</h4><p>Coaches post internal opportunities, intra-squad trials, and special coaching camp invitations directly through the platform to their registered players. <em style="color:#60A5FA;">(In development)</em></p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================================================ SWOI -->
+<section class="sec-swoi" id="swoi">
+    <div class="si" style="position:relative;z-index:1;">
+        <div class="swoi-banner reveal">
+            <div class="swoi-pill">&#10022; Introducing SWOI: Operations Intelligence &mdash; Standalone App</div>
+            <h2>SWPI trains your athletes.<br><em>SWOI runs your entire academy.</em></h2>
+            <p>Students, batches, fees, coaches, and attendance &mdash; every part of your sports operation, intelligently managed in one place. No spreadsheets. No WhatsApp groups. No guesswork.</p>
+        </div>
+
+        <div class="swoi-grid">
+            <div class="scard reveal">
+                <div class="scard-icon">👥</div>
+                <h3>Student &amp; Batch Operations</h3>
+                <p>Every student record, batch schedule, and coach assignment in one master view. Know capacity, utilisation, and who belongs where &mdash; always current, always accessible.</p>
+            </div>
+            <div class="scard reveal">
+                <div class="scard-icon">📋</div>
+                <h3>Automated Attendance Tracking</h3>
+                <p>Digital roll-call for every session. Track student regularity, identify drop-offs early, and ensure strict accountability &mdash; without manual registers or WhatsApp messages.</p>
+            </div>
+            <div class="scard reveal">
+                <div class="scard-icon">💰</div>
+                <h3>Fee &amp; Collections Intelligence</h3>
+                <p>Know exactly who has paid, who hasn&rsquo;t, and who made partial payments across every batch. Automated reminders, instant receipts, and collection health scores in real time.</p>
+            </div>
+            <div class="scard reveal">
+                <div class="scard-icon">📉</div>
+                <h3>Owner Business Intelligence</h3>
+                <p>Monitor Collection Health Scores, batch profitability, and revenue versus coaching costs &mdash; clearly visualized. Make data-driven decisions on expansion, staffing, and pricing.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================================================ SECURITY -->
+<section class="sec-security" id="security">
+    <div class="si">
+        <div class="tc">
+            <div class="slabel center">Data Protection</div>
+            <h2 class="stitle">Your Players&rsquo; Data.<br>Your Rules. Always.</h2>
+            <p class="sdesc">We understand academies are sharing sensitive data about minors. Security and privacy are not afterthoughts &mdash; they are the foundation of how SWPI is built.</p>
+        </div>
+
+        <div class="sec-grid">
+            <div class="sec-visual reveal">
+                <div class="sv-icon">🛡️</div>
+                <div class="sv-title">Separated Academy Data</div>
+                <div class="sv-desc">Every academy&rsquo;s records are kept separate from every other academy&rsquo;s. No player data is shared or visible between institutions.</div>
+                <div class="sec-note">
+                    <strong>Our commitment:</strong> SWPI will never sell, share, analyse, or monetise any academy&rsquo;s player data for any purpose other than delivering the coaching intelligence the academy subscribes to. Your players&rsquo; data is not our product.
+                </div>
+            </div>
+            <div class="sec-pillars">
+                <div class="spillar reveal">
+                    <div class="sp-icon">🏫</div>
+                    <div>
+                        <h4>Academy-Level Data Sovereignty</h4>
+                        <p>Your academy&rsquo;s data belongs to your academy &mdash; period. Coach A from Academy A cannot see, search, or access any player from Academy B. Every request carries an academy identity, and every database query is filtered by it &mdash; a boundary we have audited statement by statement across the platform.</p>
+                    </div>
+                </div>
+                <div class="spillar reveal">
+                    <div class="sp-icon">👤</div>
+                    <div>
+                        <h4>Role-Based Access Control</h4>
+                        <p>Your administration decides exactly who sees what. Head Coaches and Directors can add and manage the full player roster. Assistant Coaches can record assessments but cannot add, import, or export player records, and personal contact details stay hidden from them. Parents never receive a login into your academy&rsquo;s data &mdash; only their own child&rsquo;s report.</p>
+                    </div>
+                </div>
+                <div class="spillar reveal">
+                    <div class="sp-icon">🔒</div>
+                    <div>
+                        <h4>Minor Data Protection</h4>
+                        <p>Recorded parental consent is required before any AI analysis of a child&rsquo;s data &mdash; captured with the parent&rsquo;s name, their relationship to the child, and a timestamped audit trail. Analysis is blocked without it, consent can be withdrawn at any time, and your academy can pull the full consent record as a formal report.</p>
+                    </div>
+                </div>
+                <div class="spillar reveal">
+                    <div class="sp-icon">🔑</div>
+                    <div>
+                        <h4>Encryption &amp; Secure Sign-In</h4>
+                        <p>Time-expiring sign-in tokens, with all traffic encrypted in transit over HTTPS/TLS. Passwords are stored only as bcrypt hashes, never in readable form, and sensitive personal fields such as contact numbers are encrypted at rest with AES-256. Administrator sign-in requires a one-time code sent by email. Backups run nightly, are encrypted, and expire on a 90-day schedule.</p>
                     </div>
                 </div>
             </div>
@@ -327,398 +843,337 @@
     </div>
 </section>
 
-<!-- PILOT PARTNER -->
-<section id="pilot" class="pilot-section">
-    <div class="pilot-inner">
-        <div>
-            <div class="school-card">
-                <div class="school-name">Smt. Sulochanadevi<br>Singhania School</div>
-                <div class="school-sub">Cricket Academy · Thane, Maharashtra · Pilot: May 2026</div>
-                <div class="school-stats">
-                    <div class="school-stat"><div class="school-stat-val">12</div><div class="school-stat-lbl">Players</div></div>
-                    <div class="school-stat"><div class="school-stat-val">U14</div><div class="school-stat-lbl">Age Group</div></div>
-                    <div class="school-stat"><div class="school-stat-val">5</div><div class="school-stat-lbl">Modules Live</div></div>
-                </div>
-                <div class="school-quote">"The parents now receive a proper monthly report on their child — attendance, scores, coach feedback, and what to focus on next. This was never possible before at our level."</div>
-            </div>
+<div class="divider"></div>
+
+<!-- ================================================ ROADMAP / PHASES -->
+<section class="sec-phases" id="roadmap">
+    <div class="si">
+        <div class="tc">
+            <div class="slabel center">Product Roadmap</div>
+            <h2 class="stitle">Built for the Long Game</h2>
+            <p class="sdesc">SWPI is a living platform. Here is what you unlock today, what is coming in 2026, and our vision for 2027 and beyond.</p>
         </div>
-        <div class="pilot-content">
-            <div class="section-label">Launch Pilot Partner</div>
-            <h2>Running live at a <em>real school.</em></h2>
-            <p>Singhania School's cricket academy is our launch pilot partner. Coaches log attendance, weekly skill assessments, match statistics, and coach remarks through the SWPI platform. The system processes all of it and delivers professional monthly development reports to every parent.</p>
-            <p>This is a production deployment — real students, real coaches, real data. The pilot runs free for the first month. If the school is satisfied with the results, they become SWPI's first paying subscriber from month two.</p>
-            <div class="pilot-metrics">
-                <div class="metric-pill"><span class="metric-icon">📋</span><div class="metric-text"><strong>Monthly Parent Reports</strong><span>Every player, every month</span></div></div>
-                <div class="metric-pill"><span class="metric-icon">🎥</span><div class="metric-text"><strong>Video Technique Analysis</strong><span>Biomechanical profiles from video</span></div></div>
-                <div class="metric-pill"><span class="metric-icon">📊</span><div class="metric-text"><strong>Live Squad Dashboard</strong><span>Risk flags, trends, benchmarks</span></div></div>
-                <div class="metric-pill"><span class="metric-icon">🏏</span><div class="metric-text"><strong>Match Statistics Logger</strong><span>Batting, bowling & fielding data</span></div></div>
+        <div class="phases-grid">
+
+            <div class="phase p1 reveal">
+                <div class="ph-num">1</div>
+                <div class="ph-badge">Live Now &mdash; Phase 1</div>
+                <h3>Cricket Performance Intelligence</h3>
+                <ul class="ph-list">
+                    <li>AI Biomechanical Video Analysis</li>
+                    <li>Monthly Assessment Reports</li>
+                    <li>Match Logger &mdash; Batting &amp; Bowling</li>
+                    <li>Weekly Coach Assessment &amp; Remarks</li>
+                    <li>Attendance &amp; Workload Tracking</li>
+                    <li>Player Profile &amp; Injury Risk Dashboard</li>
+                    <li>Yearly Journey Report with Match Statistics</li>
+                    <li>Multilingual Reports (English + Local Language)</li>
+                    <li>Role-Based Access Control</li>
+                    <li>Progressive Web App &mdash; works offline</li>
+                </ul>
+            </div>
+
+            <div class="phase p2 reveal">
+                <div class="ph-num">2</div>
+                <div class="ph-badge">Coming 2026 &mdash; Phase 2</div>
+                <h3>Football &amp; Athletics</h3>
+                <ul class="ph-list">
+                    <li>3D Rotational Body Mapping</li>
+                    <li>Opportunities Hub &mdash; Tournaments &amp; Trials</li>
+                    <li>Football Module &mdash; Passing, Shooting &amp; Sprint Analysis</li>
+                    <li>Athletics Module &mdash; Sprint, Jump &amp; Throw Biomechanics</li>
+                    <li>Gait Analysis &amp; Block Start Mechanics</li>
+                    <li>Peer Benchmarking &amp; Squad Percentile Ranks</li>
+                    <li>Predictive Injury Risk Modelling (ML)</li>
+                    <li>Live Match Scoring Integration</li>
+                    <li>Parent Mobile App with Push Notifications</li>
+                    <li>Player Recruitment Portal for Selectors</li>
+                    <li>District &amp; State Level Performance Leaderboard</li>
+                    <li>Voice-to-Text Coach Remarks</li>
+                    <li>Full GDPR-aligned Minor Data Protocols</li>
+                </ul>
+            </div>
+
+            <div class="phase p3 reveal">
+                <div class="ph-num">3</div>
+                <div class="ph-badge">Vision 2027 &mdash; Phase 3</div>
+                <h3>India Fitness Test</h3>
+                <ul class="ph-list">
+                    <li>Standardised Physical Assessments</li>
+                    <li>Aligned with US Presidential Fitness Test</li>
+                    <li>Stamina, Strength &amp; Agility Benchmarking</li>
+                    <li>School-Wide Overall Health Reports</li>
+                    <li>AI Career Path Advisor</li>
+                    <li>Wearable Device Integration (GPS vest &amp; smartwatch)</li>
+                    <li>Real-time Game Analytics with Ball Tracking</li>
+                    <li>Full BCCI &amp; SAI Partnership Integration</li>
+                    <li>Mental Performance Coaching Module</li>
+                    <li>Nutrition &amp; Recovery Tracking</li>
+                    <li>School vs School Anonymous Benchmark Reports</li>
+                    <li>SWPI Nationally Recognised Coach Certification</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================================================ MULTI-SPORT VISION -->
+<section class="sec-sports" id="sports">
+    <div class="si">
+        <div class="sports-grid">
+            <div>
+                <div class="slabel">Multi-Sport Vision</div>
+                <h2 class="stitle">One Platform.<br>Every Sport.<br>Every Athlete.</h2>
+                <p class="sdesc" style="margin-bottom:20px;">
+                    SWPI is built to grow with your academy. We begin with cricket &mdash; the sport with the richest data opportunity in India &mdash; and systematically expand to cover every sport your academy competes in.
+                </p>
+                <p class="sdesc">
+                    The same AI that analyses a batsman&rsquo;s knee bend today will analyse a striker&rsquo;s shooting technique tomorrow, and a sprinter&rsquo;s block start in 2027. One login. One platform. One holistic view of your entire athletics programme.
+                </p>
+            </div>
+            <div>
+                <div class="sport-row reveal">
+                    <div class="si-box" style="background:rgba(212,175,55,.12);">🏏</div>
+                    <div class="sport-info"><h4>Cricket</h4><p>Full batting, bowling &amp; fielding intelligence</p></div>
+                    <div class="sport-badge sl">LIVE NOW</div>
+                </div>
+                <div class="sport-row reveal">
+                    <div class="si-box" style="background:rgba(59,130,246,.12);">⚽</div>
+                    <div class="sport-info"><h4>Football &amp; Athletics</h4><p>Position-specific movement, sprinting &amp; biomechanics</p></div>
+                    <div class="sport-badge ss">PHASE 2 &middot; 2026</div>
+                </div>
+                <div class="sport-row reveal">
+                    <div class="si-box" style="background:rgba(139,92,246,.12);">🏃</div>
+                    <div class="sport-info"><h4>India Fitness Test</h4><p>Standardised health benchmarking (Presidential standard)</p></div>
+                    <div class="sport-badge sf">PHASE 3 &middot; 2027</div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section id="product" class="section-padding bg-card">
-    <div class="centered">
-        <div class="section-label">How SWPI Works</div>
-        <div class="section-title">Four inputs. One complete picture.</div>
-        <div class="section-sub">Coaches spend minutes per week. The platform handles the analysis, benchmarking, and parent communication automatically.</div>
-    </div>
-    <div class="how-grid">
-        <div class="how-step">
-            <div class="step-num">01</div>
-            <span class="step-icon">📋</span>
-            <h3>Coach Logs Data</h3>
-            <p>Attendance, weekly skill scores across Physical, Technical and Mental dimensions, match statistics, and coach remarks — structured and saved in seconds.</p>
-            <div class="step-arrow">→</div>
-        </div>
-        <div class="how-step">
-            <div class="step-num">02</div>
-            <span class="step-icon">⚙️</span>
-            <h3>Platform Analyses</h3>
-            <p>SWPI cross-references all data points, calculates squad benchmarks, detects improvement trajectories, and flags players who need attention before issues compound.</p>
-            <div class="step-arrow">→</div>
-        </div>
-        <div class="how-step">
-            <div class="step-num">03</div>
-            <span class="step-icon">📄</span>
-            <h3>Report is Generated</h3>
-            <p>A professional monthly development report is compiled for every player — radar charts, trend lines, coach remarks, and plain-language summaries parents can understand.</p>
-            <div class="step-arrow">→</div>
-        </div>
-        <div class="how-step">
-            <div class="step-num">04</div>
-            <span class="step-icon">📱</span>
-            <h3>Parents Are Informed</h3>
-            <p>Reports are shared directly with parents via WhatsApp — the primary communication channel for Indian cricket families. No app download required.</p>
-        </div>
-    </div>
-</section>
+<div class="divider"></div>
 
-<!-- PRODUCT SCREENSHOTS -->
-<section class="section-padding" style="background:var(--navy)">
-    <div class="centered">
-        <div class="section-label">Live Platform Screens</div>
-        <div class="section-title">Built. Deployed. Working.</div>
-        <div class="section-sub">Every screen below is from the live SWPI platform currently running at Singhania School's cricket academy.</div>
-    </div>
-
-    <div class="screen-showcase">
-        <div class="screen-header">
-            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
-            <div class="screen-url">sportz-well-demo.vercel.app / dashboard — Singhania School Cricket Academy</div>
+<!-- ================================================ FOUNDER -->
+<section class="sec-founder" id="founder">
+    <div class="si">
+        <div class="tc">
+            <div class="slabel center">Leadership</div>
+            <h2 class="stitle">Built by Someone Who Played the Game</h2>
         </div>
-        <div class="screen-content">
-            <div class="dash-mock">
-                <div class="dash-topbar">
-                    <div class="dash-logo-mock">SPORTZ-WELL PERFORMANCE INTELLIGENCE</div>
-                    <div class="dash-academy-pill">Singhania School Cricket Academy ▾</div>
-                </div>
-                <div class="dash-nav-mock">
-                    <div class="dash-btn dash-btn-gold">VIEW DIRECTORY</div>
-                    <div class="dash-btn dash-btn-outline">ADD PLAYER</div>
-                    <div class="dash-btn dash-btn-outline">MONTHLY ASSESSMENT</div>
-                    <div class="dash-btn dash-btn-outline" style="margin-left:auto">LOG OUT</div>
-                </div>
-                <div class="dash-kpi-grid">
-                    <div class="kpi-card"><div class="kpi-label">Total Players</div><div class="kpi-value">12</div><div class="kpi-sub">↑ Active Squad</div></div>
-                    <div class="kpi-card"><div class="kpi-label">Latest Month</div><div class="kpi-value" style="font-size:18px;padding-top:4px">May 2026</div><div class="kpi-sub">↑ Current</div></div>
-                    <div class="kpi-card"><div class="kpi-label">Top Performer</div><div class="kpi-value" style="font-size:15px;padding-top:6px">Rahul Dravid Jr.</div><div class="kpi-sub">↑ 9.1/10</div></div>
-                    <div class="kpi-card"><div class="kpi-label">At Risk</div><div class="kpi-value" style="color:#EF4444">3</div><div class="kpi-sub" style="color:var(--orange)">⚠ Flagged</div></div>
-                </div>
-                <div class="dash-chart-row">
-                    <div class="chart-box">
-                        <div class="chart-title">Squad Score Trend</div>
-                        <div class="chart-bars">
-                            <div class="bar" style="height:55%"><span>Jan</span></div>
-                            <div class="bar" style="height:62%"><span>Feb</span></div>
-                            <div class="bar" style="height:60%"><span>Mar</span></div>
-                            <div class="bar bar-last" style="height:78%"><span>May (Live)</span></div>
+        <div class="founder-inner">
+            <div class="founder-card reveal">
+                <div class="founder-av">JJ</div>
+                <div class="founder-name">Jitendra S Jagdale</div>
+                <div class="founder-role">Founder &amp; CEO, Sportz-Well Performance Intelligence</div>
+                <div class="creds">
+                    <div class="cred-row">
+                        <div class="cred-ico">🏏</div>
+                        <div class="cred-body">
+                            <strong>Ex Mumbai University Cricketer</strong>
+                            <span>Played competitive cricket at university level in Mumbai</span>
                         </div>
                     </div>
-                    <div class="chart-box" style="text-align:center">
-                        <div class="chart-title">Risk Distribution</div>
-                        <div class="donut-placeholder"></div>
-                        <div class="donut-legend">
-                            <div><div class="legend-dot" style="background:var(--green)"></div>Optimal (40%)</div>
-                            <div><div class="legend-dot" style="background:var(--gold)"></div>Stable (25%)</div>
-                            <div><div class="legend-dot" style="background:var(--red)"></div>At Risk (35%)</div>
+                    <div class="cred-row">
+                        <div class="cred-ico">🏅</div>
+                        <div class="cred-body">
+                            <strong>MCA Match Observer</strong>
+                            <span>Official Observer, Kanga League &mdash; Mumbai Cricket Association</span>
+                        </div>
+                    </div>
+                    <div class="cred-row">
+                        <div class="cred-ico">💡</div>
+                        <div class="cred-body">
+                            <strong>Founder, Sportz-Well</strong>
+                            <span>Building India&rsquo;s first grassroots sports intelligence platform</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="two-col-reports" style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-        <div class="screen-showcase" style="margin-bottom:0">
-            <div class="screen-header">
-                <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
-                <div class="screen-url">/ monthly-report / aarav-sharma</div>
-            </div>
-            <div class="screen-content" style="padding:20px">
-                <div class="report-mock-inner">
-                    <div class="report-mock-header">
-                        <div class="report-mock-brand">Singhania School Cricket Academy</div>
-                        <div class="report-mock-name">Aarav Sharma</div>
-                        <div class="report-mock-sub">U14 Squad · Opening Batsman · May 2026</div>
-                        <div class="report-verdict">🟢 Overall Status: Strong Progress This Month</div>
-                    </div>
-                    <div class="report-kpi-row">
-                        <div class="r-kpi"><div class="r-kpi-val" style="color:var(--green)">92%</div><div class="r-kpi-lbl">Attendance</div></div>
-                        <div class="r-kpi"><div class="r-kpi-val">7.8</div><div class="r-kpi-lbl">Score /10</div></div>
-                        <div class="r-kpi"><div class="r-kpi-val" style="font-size:15px;padding-top:4px">Top 15%</div><div class="r-kpi-lbl">Squad Rank</div></div>
-                        <div class="r-kpi"><div class="r-kpi-val">145</div><div class="r-kpi-lbl">Match Runs</div></div>
-                    </div>
-                    <div style="padding:0 16px 16px;font-size:13px;color:var(--text-muted);font-style:italic;border-top:1px solid rgba(255,255,255,0.04);padding-top:14px;margin-top:4px">"Aarav has shown fantastic dedication this month. His technical skill at the crease is maturing..." — Lead Coach</div>
-                </div>
-            </div>
-        </div>
-        <div class="screen-showcase" style="margin-bottom:0">
-            <div class="screen-header">
-                <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
-                <div class="screen-url">/ biomechanical-profile / sara-gupte — [Demo Access Required]</div>
-            </div>
-            <div class="screen-content" style="padding:20px">
-                <div class="locked-report">
-                    <div class="report-blur">
-                        <div class="report-mock-inner">
-                            <div class="report-mock-header" style="background:linear-gradient(135deg,#08172B,#1A3A2A)">
-                                <div class="report-mock-brand">Biomechanical Profile · Left-Arm Orthodox Spinner</div>
-                                <div class="report-mock-name">Sara Gupte</div>
-                                <div class="report-mock-sub">Overall Biomechanical Score: 62/100</div>
-                                <div class="report-verdict" style="background:rgba(239,68,68,0.15);border-color:var(--red);color:var(--red)">🔴 Primary Focus: Foot Placement & Alignment</div>
-                            </div>
-                            <div class="report-kpi-row">
-                                <div class="r-kpi"><div class="r-kpi-val">75</div><div class="r-kpi-lbl">Run-Up Rhythm</div></div>
-                                <div class="r-kpi"><div class="r-kpi-val" style="color:var(--red)">40</div><div class="r-kpi-lbl">Foot Placement</div></div>
-                                <div class="r-kpi"><div class="r-kpi-val">85</div><div class="r-kpi-lbl">Follow-Through</div></div>
-                                <div class="r-kpi"><div class="r-kpi-val" style="color:var(--green)">+6%</div><div class="r-kpi-lbl">30-Day Growth</div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="report-lock-overlay">
-                        <div class="lock-icon">🔒</div>
-                        <div class="lock-title">Full Biomechanical Report</div>
-                        <div class="lock-sub">Sara Gupte's complete analysis — technique breakdown, skeleton overlay, issue diagnostics, and 6-week development plan — is shown during a live demo.</div>
-                        <a href="#demo" class="btn-gold" style="font-size:14px;padding:12px 24px">Request Demo Access</a>
-                    </div>
+            <div class="founder-col">
+                <h2>A platform built from the <em>inside</em> of the game</h2>
+                <p>SWPI is not a product built in a boardroom. It was designed by a cricketer who understood the pain of having no objective data to guide his development &mdash; and no affordable way for young athletes to access the kind of biomechanical analysis that elite players take for granted.</p>
+                <p>As a current Match Observer for MCA (Kanga League), Jitendra brings first-hand understanding of what selectors look for. He has built SWPI to give every student-athlete in a Mumbai or Pune school the data, visibility, and opportunity that was previously only available to those who could afford private academies.</p>
+                <div class="mission-callout">
+                    <p><strong>The mission is clear:</strong> If a 13-year-old in a government school in Dharavi has the talent to play for India, they should have the same quality of development intelligence and opportunity visibility as any player in a private coaching academy. SWPI exists to close that gap.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- FEATURES -->
-<section class="section-padding bg-card">
-    <div class="centered">
-        <div class="section-label">Platform Capabilities</div>
-        <div class="section-title">Everything a serious academy needs.</div>
-        <div class="section-sub">Six capabilities built from deep domain expertise — designed for coaches who are serious about player development, not IT administrators.</div>
-    </div>
-    <div class="features-grid">
-        <div class="feat-card">
-            <span class="feat-icon">📄</span>
-            <h3>Monthly Development Reports</h3>
-            <p>Every player gets a comprehensive monthly report — radar charts, trend lines, coach remarks, and a plain-language parent summary. No more generic WhatsApp updates from coaches who don't have time.</p>
-            <span class="feat-tag tag-live">✓ Live</span>
-        </div>
-        <div class="feat-card">
-            <span class="feat-icon">🎥</span>
-            <h3>Video Technique Analysis</h3>
-            <p>Coaches submit player video. SWPI generates a full biomechanical profile — joint angles, foot placement, body alignment — with structured improvement recommendations and expected timelines.</p>
-            <span class="feat-tag tag-live">✓ Live</span>
-        </div>
-        <div class="feat-card">
-            <span class="feat-icon">📊</span>
-            <h3>Live Squad Intelligence Dashboard</h3>
-            <p>Real-time squad health overview — score trends, risk distribution, top performers, and at-risk flags — giving academy directors the full picture in a single screen.</p>
-            <span class="feat-tag tag-live">✓ Live</span>
-        </div>
-        <div class="feat-card">
-            <span class="feat-icon">📋</span>
-            <h3>Structured Data Entry Modules</h3>
-            <p>Attendance roll call, weekly micro-assessments across three development dimensions, match statistics logger, and coach remarks — designed for coaches, not technology professionals.</p>
-            <span class="feat-tag tag-live">✓ Live</span>
-        </div>
-        <div class="feat-card">
-            <span class="feat-icon">🏫</span>
-            <h3>Multi-Academy Architecture</h3>
-            <p>One platform serving multiple schools and academies simultaneously. Each institution sees only their players and their data. Built to scale from day one.</p>
-            <span class="feat-tag tag-live">✓ Live</span>
-        </div>
-        <div class="feat-card">
-            <span class="feat-icon">📱</span>
-            <h3>WhatsApp PDF Delivery</h3>
-            <p>Monthly reports formatted for direct WhatsApp sharing — the way Indian cricket families communicate. No portals, no logins, no friction for parents.</p>
-            <span class="feat-tag tag-soon">⏱ In Development</span>
-        </div>
-    </div>
-</section>
+<div class="divider"></div>
 
-<!-- FOUNDER -->
-<section id="founder" class="section-padding" style="background:var(--card-navy)">
-    <div class="founder-inner">
-        <div>
-            <div class="founder-card">
-                <div class="founder-avatar">JS</div>
-                <div class="founder-name">Jitendra Sonu Jagdale</div>
-                <div class="founder-title">Founder & CEO · Sportz-Well Performance Intelligence · Thane, Maharashtra</div>
-                <div class="founder-creds">
-                    <div class="cred-row"><span class="cred-icon">🏆</span><div class="cred-text"><strong>Championship Pedigree</strong><span>2x Giles Shield & 2x Harris Shield winner. 2x Junior College Intercollegiate. 1x Times Shield.</span></div></div>
-                    <div class="cred-row"><span class="cred-icon">⭐</span><div class="cred-text"><strong>Played Under Sachin Tendulkar</strong><span>U-17 Satkar Trophy winner — Sachin Tendulkar was the team captain. A-Division Club Cricket & Kanga League player.</span></div></div>
-                    <div class="cred-row"><span class="cred-icon">🏛️</span><div class="cred-text"><strong>Mumbai Cricket Authority</strong><span>Mumbai University Representative. Current MCA (Mumbai Cricket Association) Match Observer.</span></div></div>
-                    <div class="cred-row"><span class="cred-icon">📍</span><div class="cred-text"><strong>Building for Grassroots India</strong><span>Based in Thane. Building for the cricket ecosystem he grew up competing in.</span></div></div>
+<!-- ================================================ DEMO FORM -->
+<section class="sec-demo" id="demo">
+    <div class="si">
+        <div class="demo-grid">
+            <div class="demo-text">
+                <div class="slabel">Get Started</div>
+                <h2>Ready to transform your <em>academy?</em></h2>
+                <p>Whether you&rsquo;re a school sports coordinator, an independent cricket academy, or a multi-sport coaching centre &mdash; SWPI and SWOI are built for you. Request a personalised demo and we&rsquo;ll show you exactly how the platform works for your setup.</p>
+                <div class="reassure">
+                    <div class="ri"><span class="chk">&#10003;</span>Free 30-minute platform walkthrough</div>
+                    <div class="ri"><span class="chk">&#10003;</span>No commitment required</div>
+                    <div class="ri"><span class="chk">&#10003;</span>Custom pricing for your academy size</div>
+                    <div class="ri"><span class="chk">&#10003;</span>We come to you &mdash; Mumbai &amp; Pune</div>
+                    <div class="ri"><span class="chk">&#10003;</span>Response within 24 hours</div>
                 </div>
             </div>
-        </div>
-        <div class="founder-text-col">
-            <div class="section-label">Why This Platform Exists</div>
-            <h2>Decades of cricket.<br><em>One clear gap.</em></h2>
-            <p>Jitendra Jagdale spent his career as a cricketer, coach, and MCA observer watching the same problem repeat: talented young players with no development record. Coaches were using WhatsApp and paper. Parents had no visibility. Academies had no data. No one was building anything to fix it at the grassroots level.</p>
-            <p>SWPI was built because Jitendra knew exactly what coaches needed — and knew that no software company had ever actually worked at this level to understand those needs from the inside.</p>
-            <p>The domain expertise behind this platform is not something that can be replicated by reading a coaching manual. It comes from decades on the field, in the dugout, and in the MCA observer's seat.</p>
-            <div class="sachin-callout">
-                <p>Jitendra played the U-17 Satkar Trophy under the captaincy of <strong>Sachin Tendulkar</strong> and later became an MCA Match Observer — one of very few founders who has seen Indian cricket development from both the grassroots player's perspective and the institutional oversight level.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ROADMAP -->
-<section id="vision" class="section-padding" style="background:var(--navy)">
-    <div class="centered">
-        <div class="section-label">Product Roadmap</div>
-        <div class="section-title">Phase 1 is live. Here is what comes next.</div>
-        <div class="section-sub">SWPI is built for scale — starting with cricket in India, expanding to every sport and every level of grassroots sport.</div>
-    </div>
-    <div class="roadmap-track">
-        <div class="roadmap-card active">
-            <div class="roadmap-num-wrap"><div class="roadmap-num rn-active">01</div><div class="roadmap-status rs-live">🟢 Live Now</div></div>
-            <h3>Cricket Performance Intelligence</h3>
-            <p>Complete player tracking platform for cricket academies and schools. Live pilot at Singhania School, Thane. Second academy in active discussions with IT leadership.</p>
-        </div>
-        <div class="roadmap-card">
-            <div class="roadmap-num-wrap"><div class="roadmap-num rn-next">02</div><div class="roadmap-status rs-next">🟡 Next Phase</div></div>
-            <h3>Multi-Sport Expansion</h3>
-            <p>Extending the SWPI platform to football, athletics, badminton, and swimming. The core architecture is sport-agnostic — designed for this from the beginning.</p>
-        </div>
-        <div class="roadmap-card">
-            <div class="roadmap-num-wrap"><div class="roadmap-num rn-future">03</div><div class="roadmap-status rs-future">⚪ Future Vision</div></div>
-            <h3>India Youth Fitness Standard</h3>
-            <p>A standardised youth fitness benchmark, deployable across thousands of schools and educational institutions across India as a national programme.</p>
-        </div>
-    </div>
-</section>
-
-<!-- LEAD CAPTURE -->
-<section id="demo" class="lead-section section-padding">
-    <div class="lead-inner">
-        <div class="lead-text">
-            <div class="section-label">Get In Touch</div>
-            <h2>See SWPI running<br>at your <em>academy.</em></h2>
-            <p>We are onboarding a small number of cricket academies and schools for our next pilot cohort. Fill in your details and Jitendra will reach out personally within 24 hours to walk you through the live platform.</p>
-            <div class="lead-reassurance">
-                <div class="reassure-item"><span>✓</span><span>No obligation. No sales team. You speak directly with the founder.</span></div>
-                <div class="reassure-item"><span>✓</span><span>We show you the live platform running with real data from our current pilot.</span></div>
-                <div class="reassure-item"><span>✓</span><span>Your details are never shared with anyone.</span></div>
-                <div class="reassure-item"><span>✓</span><span>First month is free for all pilot partners.</span></div>
-            </div>
-        </div>
-        <div class="lead-form">
-            <div id="form-area">
+            <div class="demo-form reveal" id="formWrap">
                 <h3>Request a Demo</h3>
-                <p class="lead-form-sub">Takes 60 seconds. Jitendra responds personally on WhatsApp.</p>
-                <div class="form-row">
-                    <div class="form-group"><label>Your Name *</label><input type="text" id="f-name" placeholder="e.g. Rajesh Mehta" /></div>
-                    <div class="form-group"><label>WhatsApp Number *</label><input type="tel" id="f-phone" placeholder="e.g. 9820012345" /></div>
-                </div>
-                <div class="form-group"><label>Academy / School Name *</label><input type="text" id="f-academy" placeholder="e.g. Thane Cricket Academy" /></div>
-                <div class="form-row">
-                    <div class="form-group"><label>City</label><input type="text" id="f-city" placeholder="e.g. Mumbai" /></div>
-                    <div class="form-group"><label>Number of Players</label>
-                        <select id="f-players"><option value="">Select...</option><option>Under 10</option><option>10 – 25</option><option>25 – 50</option><option>50 – 100</option><option>100+</option></select>
+                <p class="form-sub">Fill in your details and we&rsquo;ll be in touch within 24 hours.</p>
+                <form id="demoForm" onsubmit="handleSubmit(event)">
+                    <div class="frow">
+                        <div class="fg">
+                            <label>Your Name</label>
+                            <input type="text" id="f-name" placeholder="Full name" required>
+                        </div>
+                        <div class="fg">
+                            <label>Academy / School Name</label>
+                            <input type="text" id="f-academy" placeholder="Name of your institution" required>
+                        </div>
+                    </div>
+                    <div class="fg">
+                        <label>Your Role</label>
+                        <select id="f-role" required>
+                            <option value="" disabled selected>Select your role</option>
+                            <option>Head Coach</option>
+                            <option>Assistant Coach</option>
+                            <option>Academy Owner</option>
+                            <option>School Sports Coordinator</option>
+                            <option>School Administrator / Principal</option>
+                            <option>Parent</option>
+                        </select>
+                    </div>
+                    <div class="frow">
+                        <div class="fg">
+                            <label>Email Address</label>
+                            <input type="email" id="f-email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="fg">
+                            <label>Mobile Number</label>
+                            <input type="tel" id="f-phone" placeholder="+91 XXXXX XXXXX" required>
+                        </div>
+                    </div>
+                    <div class="fg">
+                        <label>Number of Players in Your Squad</label>
+                        <select id="f-players">
+                            <option value="" disabled selected>Approximate number</option>
+                            <option>Under 15</option>
+                            <option>15 – 30</option>
+                            <option>31 – 60</option>
+                            <option>61 – 100</option>
+                            <option>100+</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="form-btn">Request Your Free Demo &rarr;</button>
+                </form>
+                <div class="form-success" id="formSuccess">
+                    <div class="ok-icon">📨</div>
+                    <h4>One last step &mdash; press send</h4>
+                    <p>Your email app should have opened with your details already filled in. Send that email and Jitendra will personally reach out within 24 hours.</p>
+                    <p style="margin-top:14px;font-size:13px;color:var(--muted);">Didn&rsquo;t open? Use either of these instead &mdash; your details are already attached:</p>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+                        <a id="fallbackMail" href="mailto:jitendra@sportz-well.com" style="flex:1 1 160px;text-align:center;background:linear-gradient(135deg,var(--gold),var(--orange));color:var(--navy);padding:11px 18px;border-radius:6px;font-weight:700;font-size:13px;text-decoration:none;">📧 Email us</a>
+                        <a id="fallbackWa" href="https://wa.me/919920810017" target="_blank" rel="noopener" style="flex:1 1 160px;text-align:center;background:rgba(16,185,129,.14);border:1px solid var(--border-g);color:var(--green-lt);padding:11px 18px;border-radius:6px;font-weight:700;font-size:13px;text-decoration:none;">💬 WhatsApp us</a>
                     </div>
                 </div>
-                <button class="form-submit" onclick="submitForm()">📋 Request My Demo →</button>
-            </div>
-            <div class="form-success" id="form-success">
-                <div class="success-icon">✅</div>
-                <h4>Request Received!</h4>
-                <p>Thank you. Jitendra will contact you on WhatsApp within 24 hours to schedule your personalised walkthrough of the live SWPI platform.</p>
             </div>
         </div>
     </div>
 </section>
 
+<!-- ================================================ FOOTER -->
 <footer>
-    <div>
-        <div class="footer-logo">SPORTZ-WELL<span>.</span></div>
-        <div class="footer-tagline">Player Development Intelligence · Thane, Maharashtra, India</div>
+    <div class="f-brand">
+        <strong>SPORTZ-WELL</strong>
+        <span>SWPI &middot; SWOI &nbsp;&middot;&nbsp; Sports Intelligence Platform &middot; India</span>
     </div>
-    <div class="footer-links">
-        <a href="#problem">The Problem</a>
-        <a href="#product">Platform</a>
-        <a href="#pilot">Pilot Partner</a>
+    <div class="f-links">
+        <a href="#swpi">SWPI</a>
+        <a href="#swoi">SWOI</a>
+        <a href="#roadmap">Roadmap</a>
         <a href="#founder">About</a>
-        <a href="mailto:jitendra@sportz-well.com">Contact</a>
+        <a href="#demo">Demo</a>
     </div>
-    <div class="footer-right">
-        <div>© 2026 Sportz-Well Performance Intelligence</div>
-        <div style="margin-top:4px">Built in India. Designed for grassroots cricket.</div>
+    <div class="f-right">
+        <div>📧 jitendra@sportz-well.com &nbsp;&middot;&nbsp; 📞 +91 99208 10017</div>
+        <div>&copy; 2026 Sportz-Well. Mumbai, Maharashtra. All rights reserved.</div>
     </div>
 </footer>
 
+<!-- ================================================ SCRIPTS -->
 <script>
-async function submitForm() {
-    const name = document.getElementById('f-name').value.trim();
-    const phone = document.getElementById('f-phone').value.trim();
-    const academy = document.getElementById('f-academy').value.trim();
-    const city = document.getElementById('f-city').value;
-    const players = document.getElementById('f-players').value;
-    
-    if (!name || !phone || !academy) {
-        alert('Please fill in your name, WhatsApp number, and academy name to continue.');
-        return;
+    /* Tab switcher */
+    function showTab(id, btn) {
+        document.querySelectorAll('.tpanel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + id).classList.add('active');
+        if (btn) btn.classList.add('active');
     }
 
-    const btn = document.querySelector('.form-submit');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = 'Sending...';
-    btn.disabled = true;
+    /* Form submit — hands the enquiry to email, with a WhatsApp fallback.
+       Nothing is stored in the browser; the lead only exists once the user sends it. */
+    function handleSubmit(e) {
+        e.preventDefault();
 
-    try {
-        const response = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                access_key: 'f57babf6-a62b-4929-9c1d-71d6c6af2d3d',
-                subject: 'New Demo Request from ' + academy,
-                Name: name,
-                WhatsApp: phone,
-                Academy: academy,
-                City: city || 'Not provided',
-                Players: players || 'Not provided'
-            })
+        const val = id => (document.getElementById(id).value || '').trim();
+        const name    = val('f-name');
+        const academy = val('f-academy');
+        const role    = val('f-role');
+        const email   = val('f-email');
+        const phone   = val('f-phone');
+        const players = val('f-players') || 'Not specified';
+
+        const subject = 'SWPI Demo Request — ' + (academy || name);
+        const body =
+            'Hello Jitendra,\n\n' +
+            'I would like to request a demo of SWPI / SWOI.\n\n' +
+            'Name:              ' + name + '\n' +
+            'Academy / School:  ' + academy + '\n' +
+            'Role:              ' + role + '\n' +
+            'Email:             ' + email + '\n' +
+            'Mobile:            ' + phone + '\n' +
+            'Squad size:        ' + players + '\n\n' +
+            'Please get in touch to schedule a walkthrough.\n\nThank you.';
+
+        const mailto = 'mailto:jitendra@sportz-well.com'
+            + '?subject=' + encodeURIComponent(subject)
+            + '&body='    + encodeURIComponent(body);
+
+        /* Pre-fill both fallbacks so the details are never lost if the mail app fails to open. */
+        document.getElementById('fallbackMail').href = mailto;
+        document.getElementById('fallbackWa').href =
+            'https://wa.me/919920810017?text=' + encodeURIComponent(body);
+
+        document.getElementById('demoForm').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+
+        window.location.href = mailto;
+    }
+
+    /* Scroll reveal */
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
         });
+    }, { threshold: 0.08 });
 
-        if (response.ok) {
-            document.getElementById('form-area').style.display = 'none';
-            document.getElementById('form-success').style.display = 'block';
-        } else {
-            alert('Something went wrong. Please try again.');
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-    } catch (error) {
-        alert('Could not connect. Please check your internet connection.');
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-    }
-}
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* Sticky nav shadow on scroll */
+    window.addEventListener('scroll', () => {
+        document.querySelector('nav').style.boxShadow =
+            window.scrollY > 20 ? '0 4px 30px rgba(0,0,0,.5)' : 'none';
+    });
 </script>
+
 </body>
 </html>
