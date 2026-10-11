@@ -364,6 +364,8 @@
         .p1 .ph-list li::before { content:'✓'; color:var(--green);  font-weight:700; font-size:12px; min-width:14px; }
         .p2 .ph-list li::before { content:'✓'; color:#60A5FA;       font-weight:700; font-size:12px; min-width:14px; }
         .p3 .ph-list li::before { content:'✓'; color:#A78BFA;       font-weight:700; font-size:12px; min-width:14px; }
+        .ph-list li.dev::before { content:'◔'; color:#60A5FA; }
+        .ph-list li.dev em { color:#60A5FA; font-style:italic; }
 
         /* ========== MULTI-SPORT ========== */
         .sec-sports { background:linear-gradient(180deg,#060b1a 0%,var(--navy) 100%); }
@@ -476,7 +478,74 @@
         .f-links a:hover { color:var(--gold); }
         .f-right { font-size:12px; color:var(--muted); text-align:right; line-height:1.8; }
 
+        /* ========== HERO — LIVE-LOOK ANALYSIS STAGE ========== */
+        .stage-wrap { position:relative; }
+        .stage {
+            position:relative; aspect-ratio:4/3; border-radius:16px; overflow:hidden;
+            border:1px solid var(--border); background:var(--navy);
+            box-shadow:0 30px 80px rgba(0,0,0,.45);
+        }
+        .stage-img, .stage-svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+        .stage-img { object-fit:cover; }
+        .stage-tag {
+            position:absolute; right:14px; bottom:14px; z-index:3;
+            font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+            color:var(--gold); background:rgba(6,13,31,.72); border:1px solid var(--border);
+            padding:5px 10px; border-radius:20px; backdrop-filter:blur(4px);
+        }
+        .scan {
+            position:absolute; left:0; right:0; height:2px; top:0; z-index:2; pointer-events:none;
+            background:linear-gradient(90deg,transparent,rgba(52,211,153,.75),transparent);
+            box-shadow:0 0 18px 4px rgba(52,211,153,.25);
+            animation:scanY 4.5s ease-in-out infinite;
+        }
+        @keyframes scanY { 0%{top:4%;opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{top:96%;opacity:0} }
+
+        .sk-line { stroke:var(--green-lt); stroke-width:3; stroke-linecap:round; fill:none;
+                   stroke-dasharray:1; stroke-dashoffset:1; animation:skDraw 1.4s ease forwards; }
+        .sk-dot  { fill:var(--navy); stroke:var(--gold-light); stroke-width:2.5; opacity:0; animation:skFade .5s ease forwards; }
+        .sk-head { fill:none; stroke:rgba(240,208,96,.7); stroke-width:1.5; stroke-dasharray:5 5; opacity:0; animation:skFade .6s ease 1.2s forwards; }
+        .sk-mask { font:700 10px 'Inter',sans-serif; letter-spacing:1.5px; fill:var(--gold-light); opacity:0; animation:skFade .6s ease 1.4s forwards; }
+        .sk-ring { fill:none; stroke:var(--orange); stroke-width:2.5; opacity:0; transform-box:fill-box; transform-origin:center; }
+        .sk-ring.on { opacity:1; animation:ringPulse 1.4s ease-out infinite; }
+        @keyframes skDraw  { to { stroke-dashoffset:0; } }
+        @keyframes skFade  { to { opacity:1; } }
+        @keyframes ringPulse { 0%{transform:scale(.7);opacity:1} 100%{transform:scale(1.5);opacity:0} }
+
+        .acard {
+            position:absolute; left:4%; top:50%; transform:translateY(-50%); z-index:4;
+            width:min(46%,300px); padding:16px 16px 14px;
+            background:rgba(10,20,44,.84); border:1px solid rgba(255,255,255,.1);
+            border-radius:12px; backdrop-filter:blur(8px);
+            box-shadow:0 18px 50px rgba(0,0,0,.5);
+        }
+        .ac-head { display:flex; align-items:center; gap:8px; font-size:10px; font-weight:700; letter-spacing:1.6px;
+                   text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+        .ac-head .badge-dot { background:var(--green-lt); }
+        .ac-phase { background:rgba(255,255,255,.04); border-radius:8px; padding:9px 11px; margin-bottom:8px; }
+        .ac-k { font-size:9px; letter-spacing:1.3px; text-transform:uppercase; color:var(--muted); }
+        .ac-v { font-family:'Outfit',sans-serif; font-weight:800; font-size:14px; color:#fff; margin-top:3px; }
+        .ac-row { background:rgba(255,255,255,.04); border-radius:8px; padding:9px 11px; margin-bottom:8px;
+                  border:1px solid transparent; transition:border-color .3s, background .3s; }
+        .ac-row.on { border-color:rgba(249,115,22,.55); background:rgba(249,115,22,.08); }
+        .ac-row .ac-v { display:flex; justify-content:space-between; align-items:baseline; }
+        .ac-row .ac-v small { font-family:'Inter',sans-serif; font-weight:500; font-size:10px; color:var(--muted); }
+        .ac-bar { height:3px; background:rgba(255,255,255,.08); border-radius:2px; margin-top:7px; overflow:hidden; }
+        .ac-bar i { display:block; height:100%; width:0; background:linear-gradient(90deg,var(--gold),var(--orange)); transition:width 1.3s ease; }
+        .ac-foot { font-size:9.5px; line-height:1.5; color:var(--muted); margin-top:10px; }
+        .hero-status { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+        .hero-status .pc-pill { margin:0; }
+        @media (prefers-reduced-motion: reduce) {
+            .scan { display:none; }
+            .sk-line { animation:none; stroke-dashoffset:0; }
+            .sk-dot, .sk-head, .sk-mask { animation:none; opacity:1; }
+            .sk-ring.on { animation:none; }
+        }
+
         /* ========== RESPONSIVE ========== */
+        @media(max-width:700px) {
+            .acard { position:static; transform:none; width:auto; margin-top:12px; }
+        }
         @media(max-width:1024px) {
             .hero-grid,.prob-grid,.sec-grid,.sports-grid,.founder-inner,.demo-grid { grid-template-columns:1fr; }
             .phases-grid { grid-template-columns:1fr; }
@@ -550,31 +619,74 @@
             </div>
         </div>
 
-        <!-- Right — product preview cards -->
-        <div class="hero-cards">
-            <div class="pcard pcard-swpi">
-                <div class="pc-label gold">SWPI &mdash; Performance Intelligence</div>
-                <div class="pc-title">For Players &amp; Coaches</div>
-                <div class="pc-desc">AI-powered biomechanics, monthly assessments, and complete player development tracking &mdash; from school ground to academy squad.</div>
-                <div class="pc-list">
-                    <div class="pc-item"><span class="pc-dot dot-gold"></span>AI Video &amp; Biomechanical Analysis</div>
-                    <div class="pc-item"><span class="pc-dot dot-gold"></span>Monthly Performance Reports</div>
-                    <div class="pc-item"><span class="pc-dot dot-gold"></span>Match Logger &amp; Annual Journey Report</div>
-                    <div class="pc-item"><span class="pc-dot dot-gold"></span>Reports in English, Hindi &amp; Marathi</div>
+        <!-- Right — SWPI analysis stage (sample frame, face masked) -->
+        <div class="hero-visual">
+            <div class="stage-wrap">
+                <div class="stage">
+                    <img class="stage-img" src="assets/swpi-batting-analysis.jpg" width="800" height="600" fetchpriority="high"
+                         alt="Left-hand batter in a practice net, identity masked, with SWPI body-landmark tracking drawn over the frame">
+                    <svg class="stage-svg" viewBox="0 0 800 600" aria-hidden="true">
+                        <!-- Body landmarks measured from this exact frame (x,y in image pixels) -->
+                        <g>
+                            <line class="sk-line" pathLength="1" x1="538" y1="114" x2="589" y2="128" style="animation-delay:.2s"/>
+                            <line class="sk-line" pathLength="1" x1="589" y1="128" x2="568" y2="197" style="animation-delay:.4s"/>
+                            <line class="sk-line" pathLength="1" x1="568" y1="197" x2="576" y2="241" style="animation-delay:.6s"/>
+                            <line class="sk-line" pathLength="1" x1="538" y1="114" x2="488" y2="151" style="animation-delay:.4s"/>
+                            <line class="sk-line" pathLength="1" x1="538" y1="114" x2="483" y2="241" style="animation-delay:.5s"/>
+                            <line class="sk-line" pathLength="1" x1="589" y1="128" x2="510" y2="254" style="animation-delay:.5s"/>
+                            <line class="sk-line" pathLength="1" x1="483" y1="241" x2="510" y2="254" style="animation-delay:.7s"/>
+                            <line class="sk-line" pathLength="1" x1="510" y1="254" x2="524" y2="371" style="animation-delay:.8s"/>
+                            <line class="sk-line" pathLength="1" x1="524" y1="371" x2="507" y2="491" style="animation-delay:1s"/>
+                        </g>
+                        <g>
+                            <circle class="sk-dot" cx="538" cy="114" r="6" style="animation-delay:.3s"/>
+                            <circle class="sk-dot" cx="589" cy="128" r="6" style="animation-delay:.3s"/>
+                            <circle class="sk-dot" cx="488" cy="151" r="6" style="animation-delay:.5s"/>
+                            <circle class="sk-dot" cx="568" cy="197" r="6" style="animation-delay:.5s"/>
+                            <circle class="sk-dot" cx="576" cy="241" r="6" style="animation-delay:.7s"/>
+                            <circle class="sk-dot" cx="483" cy="241" r="6" style="animation-delay:.6s"/>
+                            <circle class="sk-dot" cx="510" cy="254" r="6" style="animation-delay:.6s"/>
+                            <circle class="sk-dot" cx="524" cy="371" r="6" style="animation-delay:.9s"/>
+                            <circle class="sk-dot" cx="507" cy="491" r="6" style="animation-delay:1.1s"/>
+                        </g>
+                        <circle class="sk-head" cx="616" cy="97" r="50"/>
+                        <text class="sk-mask" x="616" y="30" text-anchor="middle">IDENTITY MASKED</text>
+                        <!-- highlight rings, driven by the card rows -->
+                        <circle class="sk-ring" id="ring-torso" cx="530" cy="185" r="34"/>
+                        <circle class="sk-ring" id="ring-elbow" cx="568" cy="197" r="26"/>
+                        <circle class="sk-ring" id="ring-knee"  cx="524" cy="371" r="26"/>
+                    </svg>
+                    <div class="scan"></div>
+                    <div class="stage-tag">SWPI &middot; Sample analysis</div>
                 </div>
-                <div class="pc-pill pill-gold">&#9679; LIVE NOW</div>
+
+                <div class="acard" id="acard">
+                    <div class="ac-head"><span class="badge-dot"></span>Analysing &middot; Left-hand batter</div>
+                    <div class="ac-phase">
+                        <div class="ac-k">Phase</div>
+                        <div class="ac-v">Stance &mdash; set position</div>
+                    </div>
+                    <div class="ac-row on" data-ring="ring-torso">
+                        <div class="ac-k">Torso lean</div>
+                        <div class="ac-v"><span><span class="cnt" data-to="28">28</span>&deg;</span><small>forward</small></div>
+                        <div class="ac-bar"><i data-w="28"></i></div>
+                    </div>
+                    <div class="ac-row" data-ring="ring-elbow">
+                        <div class="ac-k">Elbow angle</div>
+                        <div class="ac-v"><span><span class="cnt" data-to="153">153</span>&deg;</span><small>top hand</small></div>
+                        <div class="ac-bar"><i data-w="85"></i></div>
+                    </div>
+                    <div class="ac-row" data-ring="ring-knee">
+                        <div class="ac-k">Knee flex</div>
+                        <div class="ac-v"><span><span class="cnt" data-to="165">165</span>&deg;</span><small>near leg</small></div>
+                        <div class="ac-bar"><i data-w="92"></i></div>
+                    </div>
+                    <div class="ac-foot">Measured from this frame &middot; 2D side-on view &middot; one of 33 body landmarks tracked per video frame.</div>
+                </div>
             </div>
-            <div class="pcard pcard-swoi">
-                <div class="pc-label grn">SWOI &mdash; Operations Intelligence</div>
-                <div class="pc-title">For Academy Owners</div>
-                <div class="pc-desc">Complete academy management &mdash; students, batches, fees, and attendance &mdash; intelligently managed in one place. No spreadsheets. No guesswork.</div>
-                <div class="pc-list">
-                    <div class="pc-item"><span class="pc-dot dot-grn"></span>Student &amp; Batch Operations</div>
-                    <div class="pc-item"><span class="pc-dot dot-grn"></span>Automated Attendance &amp; Fee Tracking</div>
-                    <div class="pc-item"><span class="pc-dot dot-grn"></span>Owner Business Intelligence Dashboard</div>
-                    <div class="pc-item"><span class="pc-dot dot-grn"></span>Collection Health &amp; Revenue Analytics</div>
-                </div>
-                <div class="pc-pill pill-grn">&#9679; COMING SOON</div>
+            <div class="hero-status">
+                <div class="pc-pill pill-gold">SWPI &mdash; &#9679; LIVE NOW</div>
+                <div class="pc-pill pill-grn">SWOI &mdash; &#9679; COMING SOON</div>
             </div>
         </div>
 
@@ -691,15 +803,15 @@
         <div class="tpanel" id="tab-video">
             <div class="fitem">
                 <div class="fdot" style="background:rgba(212,175,55,.12);">🎬</div>
-                <div><h4>High Frame-Rate Slow Motion</h4><p>Side-on slow-motion video capture &mdash; the one angle from which knee, elbow, and arm-extension measurements are scientifically valid. We deliberately do not offer angles the analysis cannot support.</p></div>
+                <div><h4>High Frame-Rate Slow Motion</h4><p>High frame-rate slow-motion capture. Side-on footage gives the most reliable knee, elbow, and arm-extension measurements, and we only report what each camera angle can genuinely support.</p></div>
             </div>
             <div class="fitem">
                 <div class="fdot" style="background:rgba(16,185,129,.12);">🦴</div>
                 <div><h4>AI Biomechanical Skeleton Overlay</h4><p>Real-time 33-point skeletal mapping using MediaPipe AI calculates knee angles, arm extension ratios, and identifies technique deviations automatically.</p></div>
             </div>
             <div class="fitem">
-                <div class="fdot" style="background:rgba(249,115,22,.12);">🌐</div>
-                <div><h4>3D 360&deg; Rotational Mapping</h4><p>Three-dimensional body position capture allows coaches to rotate the virtual skeleton and inspect technique from any angle. <em style="color:#60A5FA;">(In development)</em></p></div>
+                <div class="fdot" style="background:rgba(249,115,22,.12);">🎥</div>
+                <div><h4>3-Angle Video Analysis &mdash; Stance &amp; Grip</h4><p>Three videos of the same player from three camera angles, with dedicated stance and grip analysis, so coaches see the whole technique and not just one view.</p></div>
             </div>
             <div class="fitem">
                 <div class="fdot" style="background:rgba(139,92,246,.12);">📺</div>
@@ -865,17 +977,19 @@
                     <li>Match Logger &mdash; Batting &amp; Bowling</li>
                     <li>Weekly Coach Assessment &amp; Remarks</li>
                     <li>Attendance &amp; Workload Tracking</li>
-                    <li>Player Profile &amp; Injury Risk Dashboard</li>
+                    <li>Player Profile Dashboard</li>
                     <li>Yearly Journey Report with Match Statistics</li>
                     <li>Multilingual Reports (English + Local Language)</li>
                     <li>Role-Based Access Control</li>
                     <li>Progressive Web App &mdash; works offline</li>
+                    <li class="dev">Injury Risk Analysis <em>(In development)</em></li>
+                    <li class="dev">Session Planner <em>(In development)</em></li>
                 </ul>
             </div>
 
             <div class="phase p2 reveal">
                 <div class="ph-num">2</div>
-                <div class="ph-badge">Coming 2026 &mdash; Phase 2</div>
+                <div class="ph-badge">Coming Soon &mdash; Phase 2</div>
                 <h3>Football &amp; Athletics</h3>
                 <ul class="ph-list">
                     <li>3D Rotational Body Mapping</li>
@@ -943,7 +1057,7 @@
                 <div class="sport-row reveal">
                     <div class="si-box" style="background:rgba(59,130,246,.12);">⚽</div>
                     <div class="sport-info"><h4>Football &amp; Athletics</h4><p>Position-specific movement, sprinting &amp; biomechanics</p></div>
-                    <div class="sport-badge ss">PHASE 2 &middot; 2026</div>
+                    <div class="sport-badge ss">COMING SOON &middot; PHASE 2</div>
                 </div>
                 <div class="sport-row reveal">
                     <div class="si-box" style="background:rgba(139,92,246,.12);">🏃</div>
@@ -1070,16 +1184,16 @@
                             <option>100+</option>
                         </select>
                     </div>
-                    <button type="submit" class="form-btn">Request Your Free Demo &rarr;</button>
+                    <button type="submit" class="form-btn">Request Your Free Demo on WhatsApp &rarr;</button>
+                    <p style="margin-top:10px;font-size:12px;color:var(--muted);text-align:center;">This opens WhatsApp with your details filled in &mdash; just press send.</p>
                 </form>
                 <div class="form-success" id="formSuccess">
-                    <div class="ok-icon">📨</div>
-                    <h4>One last step &mdash; press send</h4>
-                    <p>Your email app should have opened with your details already filled in. Send that email and Jitendra will personally reach out within 24 hours.</p>
-                    <p style="margin-top:14px;font-size:13px;color:var(--muted);">Didn&rsquo;t open? Use either of these instead &mdash; your details are already attached:</p>
+                    <div class="ok-icon">💬</div>
+                    <h4>One last step &mdash; press send in WhatsApp</h4>
+                    <p>WhatsApp should have opened with your details already filled in. Just press send and Jitendra will personally reach out within 24 hours.</p>
+                    <p style="margin-top:14px;font-size:13px;color:var(--muted);">Didn&rsquo;t open? Tap the button below &mdash; your details are already attached:</p>
                     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
-                        <a id="fallbackMail" href="mailto:jitendra@sportz-well.com" style="flex:1 1 160px;text-align:center;background:linear-gradient(135deg,var(--gold),var(--orange));color:var(--navy);padding:11px 18px;border-radius:6px;font-weight:700;font-size:13px;text-decoration:none;">📧 Email us</a>
-                        <a id="fallbackWa" href="https://wa.me/919920810017" target="_blank" rel="noopener" style="flex:1 1 160px;text-align:center;background:rgba(16,185,129,.14);border:1px solid var(--border-g);color:var(--green-lt);padding:11px 18px;border-radius:6px;font-weight:700;font-size:13px;text-decoration:none;">💬 WhatsApp us</a>
+                        <a id="fallbackWa" href="https://wa.me/919920810017" target="_blank" rel="noopener" style="flex:1 1 200px;text-align:center;background:rgba(16,185,129,.14);border:1px solid var(--border-g);color:var(--green-lt);padding:12px 18px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;">💬 Open WhatsApp</a>
                     </div>
                 </div>
             </div>
@@ -1116,8 +1230,8 @@
         if (btn) btn.classList.add('active');
     }
 
-    /* Form submit — hands the enquiry to email, with a WhatsApp fallback.
-       Nothing is stored in the browser; the lead only exists once the user sends it. */
+    /* Form submit — hands the enquiry to WhatsApp with the details pre-filled.
+       Nothing is stored in the browser; the lead only exists once the visitor presses send. */
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -1129,7 +1243,6 @@
         const phone   = val('f-phone');
         const players = val('f-players') || 'Not specified';
 
-        const subject = 'SWPI Demo Request — ' + (academy || name);
         const body =
             'Hello Jitendra,\n\n' +
             'I would like to request a demo of SWPI / SWOI.\n\n' +
@@ -1141,20 +1254,46 @@
             'Squad size:        ' + players + '\n\n' +
             'Please get in touch to schedule a walkthrough.\n\nThank you.';
 
-        const mailto = 'mailto:jitendra@sportz-well.com'
-            + '?subject=' + encodeURIComponent(subject)
-            + '&body='    + encodeURIComponent(body);
+        const wa = 'https://wa.me/919920810017?text=' + encodeURIComponent(body);
 
-        /* Pre-fill both fallbacks so the details are never lost if the mail app fails to open. */
-        document.getElementById('fallbackMail').href = mailto;
-        document.getElementById('fallbackWa').href =
-            'https://wa.me/919920810017?text=' + encodeURIComponent(body);
+        /* Pre-fill the on-screen button too, so the details are never lost if WhatsApp does not open. */
+        document.getElementById('fallbackWa').href = wa;
 
         document.getElementById('demoForm').style.display = 'none';
         document.getElementById('formSuccess').style.display = 'block';
 
-        window.location.href = mailto;
+        window.open(wa, '_blank', 'noopener');
     }
+
+    /* Hero analysis card — counts up the measured values and cycles the highlight */
+    (function () {
+        const card = document.getElementById('acard');
+        if (!card) return;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const rows = card.querySelectorAll('.ac-row');
+        card.querySelectorAll('.ac-bar i').forEach(b => { b.style.width = b.dataset.w + '%'; });
+        card.querySelectorAll('.cnt').forEach(c => {
+            const to = +c.dataset.to;
+            if (reduce) return;                       /* final value is already in the HTML */
+            const t0 = Date.now(), dur = 1400;
+            c.textContent = '0';
+            const id = setInterval(() => {
+                const k = Math.min(1, (Date.now() - t0) / dur);
+                c.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
+                if (k >= 1) clearInterval(id);
+            }, 30);
+        });
+        let i = 0;
+        function show(n) {
+            rows.forEach((r, idx) => {
+                const on = idx === n;
+                r.classList.toggle('on', on);
+                document.getElementById(r.dataset.ring).classList.toggle('on', on);
+            });
+        }
+        show(0);
+        if (!reduce) setInterval(() => { i = (i + 1) % rows.length; show(i); }, 2600);
+    })();
 
     /* Scroll reveal */
     const revealObserver = new IntersectionObserver((entries) => {
