@@ -545,9 +545,11 @@
         /* ========== RESPONSIVE ========== */
         @media(max-width:700px) {
             .acard { position:static; transform:none; width:auto; margin-top:12px; }
+            .sport-row { flex-wrap:wrap; }
+            .sport-badge { margin-left:0; }
         }
         @media(max-width:1024px) {
-            .hero-grid,.prob-grid,.sec-grid,.sports-grid,.founder-inner,.demo-grid { grid-template-columns:1fr; }
+            .hero-grid,.prob-grid,.sec-grid,.sports-grid,.founder-inner,.demo-grid { grid-template-columns:minmax(0,1fr); }
             .phases-grid { grid-template-columns:1fr; }
             .swoi-grid { grid-template-columns:1fr; }
             .tpanel.active { grid-template-columns:1fr; }
