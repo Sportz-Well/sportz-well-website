@@ -3,9 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sportz-Well | SWPI & SWOI — AI Sports Intelligence Platform for India</title>
-    <meta name="description" content="Sportz-Well delivers SWPI for player & coach performance intelligence, and SWOI for complete academy operations management. An AI-powered sports intelligence platform for grassroots cricket in India.">
+    <title>Cricket Academy Software &amp; Player Reports | Sportz-Well</title>
+    <meta name="description" content="SWPI records every young cricketer's progress with the coach. SWOI runs your academy's students, fees and attendance. Plus Cricket Tours. Request a free demo.">
+    <link rel="canonical" href="https://www.sportz-well.com/">
+    <meta name="theme-color" content="#060D1F">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Sportz-Well">
+    <meta property="og:title" content="Cricket Academy Software &amp; Player Reports | Sportz-Well">
+    <meta property="og:description" content="SWPI records every young cricketer's progress with the coach. SWOI runs your academy's students, fees and attendance. Plus Cricket Tours. Request a free demo.">
+    <meta property="og:url" content="https://www.sportz-well.com/">
+    <meta property="og:image" content="https://www.sportz-well.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sportz-Well: player progress reports and academy management for cricket">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cricket Academy Software &amp; Player Reports | Sportz-Well">
+    <meta name="twitter:description" content="SWPI records every young cricketer's progress with the coach. SWOI runs your academy's students, fees and attendance. Plus Cricket Tours. Request a free demo.">
+    <meta name="twitter:image" content="https://www.sportz-well.com/assets/og-image.png">
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@graph":[
+      {"@type":"Organization","@id":"https://www.sportz-well.com/#org","name":"Sportz-Well","url":"https://www.sportz-well.com/",
+       "logo":"https://www.sportz-well.com/assets/apple-touch-icon.png","telephone":"+91-99208-10017",
+       "founder":{"@type":"Person","name":"Jitendra S Jagdale"},
+       "address":{"@type":"PostalAddress","addressLocality":"Thane","addressRegion":"Maharashtra","addressCountry":"IN"},
+       "areaServed":"IN",
+       "sameAs":["https://www.facebook.com/sportzwell","https://www.linkedin.com/company/107932051"]},
+      {"@type":"WebSite","@id":"https://www.sportz-well.com/#site","url":"https://www.sportz-well.com/","name":"Sportz-Well","publisher":{"@id":"https://www.sportz-well.com/#org"}}
+    ]}
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* ========== DESIGN TOKENS ========== */
@@ -564,6 +593,39 @@
             footer { flex-direction:column; gap:12px; text-align:center; }
             .f-right { text-align:center; }
         }
+
+        /* ========== COACH LINE (plain, small) ========== */
+        .coach-line { margin-top:18px; font-size:14px; color:var(--muted); }
+
+        /* ========== CRICKET TOURS ========== */
+        .sec-tours { background:linear-gradient(180deg,#08152e 0%,#060b1a 100%); }
+        .tours-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:40px; margin-top:44px; align-items:start; }
+        .tour-photos { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+        .tour-photos figure { margin:0; border-radius:14px; overflow:hidden; border:1px solid var(--border); background:var(--card); }
+        .tour-photos figure.wide { grid-column:1 / -1; }
+        .tour-photos img { display:block; width:100%; height:100%; object-fit:cover; }
+        .tour-photos figure.wide img { aspect-ratio:16/9; }
+        .tour-photos figure:not(.wide) img { aspect-ratio:1/1; }
+        .tour-photos figcaption { font-size:12px; color:var(--muted); padding:9px 12px 11px; line-height:1.5; }
+        .tour-points { list-style:none; margin:22px 0 26px; }
+        .tour-points li { display:flex; gap:12px; margin-bottom:14px; color:#CBD5E1; font-size:15px; line-height:1.65; }
+        .tour-points .chk { color:var(--green-lt); font-weight:800; }
+        .tour-report { margin:0; border-radius:14px; overflow:hidden; border:1px solid var(--border); background:var(--card); }
+        .tour-report img { display:block; width:100%; height:auto; }
+        .tour-report figcaption { font-size:12px; color:var(--muted); padding:9px 12px 11px; }
+        .tour-note { font-size:12.5px; color:var(--muted); margin-top:14px; line-height:1.6; }
+
+        /* ========== COOKIE NOTICE ========== */
+        #cookieBar { position:fixed; left:16px; right:16px; bottom:16px; z-index:9999; max-width:720px; margin:0 auto;
+            background:#0d1f42; border:1px solid var(--border); border-radius:12px; padding:14px 16px;
+            box-shadow:0 12px 40px rgba(0,0,0,.5); display:none; font-size:13.5px; color:#CBD5E1; line-height:1.55; }
+        #cookieBar a { color:var(--gold); }
+        #cookieBar .cb-btns { display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
+        #cookieBar button { cursor:pointer; border-radius:6px; padding:8px 16px; font-size:13px; font-weight:700; font-family:inherit; }
+        #cookieBar .cb-yes { background:var(--gold); color:#060D1F; border:0; }
+        #cookieBar .cb-no { background:transparent; color:#CBD5E1; border:1px solid var(--border); }
+        .f-cookie { background:none; border:0; color:inherit; font:inherit; text-decoration:underline; cursor:pointer; padding:0; }
+        @media(max-width:900px) { .tours-grid { grid-template-columns:1fr; } }
     </style>
 </head>
 <body>
@@ -581,11 +643,12 @@
         <a href="#swpi">SWPI</a>
         <a href="#swoi" class="swoi-nav">SWOI</a>
         <a href="#swpi">Features</a>
+        <a href="#tours">Tours</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#founder">About</a>
-        <a href="https://app.sportz-well.com" target="_blank" rel="noopener">Coach Login</a>
+        <a href="https://app.sportz-well.com" target="_blank" rel="noopener" data-track="coach_login">Coach Login</a>
     </div>
-    <a href="#demo" class="nav-cta">Request Demo &rarr;</a>
+    <a href="#demo" class="nav-cta" data-track="request_demo_nav">Request Demo &rarr;</a>
 </nav>
 
 <!-- ================================================ HERO -->
@@ -610,9 +673,10 @@
                 students, fees, attendance, and growth. One ecosystem, starting with cricket.
             </p>
             <div class="hero-btns">
-                <a href="#swpi" class="btn-gold">Explore SWPI &rarr;</a>
-                <a href="#swoi" class="btn-ghost-green">Explore SWOI</a>
+                <a href="#swpi" class="btn-gold" data-track="explore_swpi">Explore SWPI &rarr;</a>
+                <a href="#swoi" class="btn-ghost-green" data-track="explore_swoi">Explore SWOI</a>
             </div>
+            <p class="coach-line">SWPI works with the coach.</p>
             <div class="hero-stats">
                 <div class="hs"><div class="num">AI</div><div class="lbl">Biomechanical Analysis</div></div>
                 <div class="hs"><div class="num">33</div><div class="lbl">Body Landmarks Tracked</div></div>
@@ -943,13 +1007,59 @@
 
 <div class="divider"></div>
 
+<!-- ================================================ CRICKET TOURS -->
+<section class="sec-tours" id="tours">
+    <div class="si">
+        <div class="tc">
+            <div class="slabel center">Cricket Tours by Sportz-Well</div>
+            <h2 class="stitle">Take your team on tour.<br>Bring home a record of it.</h2>
+            <p class="sdesc">Sportz-Well plans cricket tours for school and club teams: matches against other teams, the team&rsquo;s own coach in charge, and a Tour Report for every player at the end.</p>
+        </div>
+        <div class="tours-grid">
+            <div>
+                <div class="tour-photos reveal">
+                    <figure class="wide">
+                        <img src="assets/tour-roller.webp" width="1100" height="825" loading="lazy" alt="Groundsman rolling the red-soil pitch in the early morning before a match at the U-14 cricket tour in Panchgani, with the hills behind">
+                        <figcaption>Early morning: the pitch is rolled before the first ball.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/tour-pitch.webp" width="900" height="972" loading="lazy" alt="Close-up of a cracked red-soil cricket pitch with white creases">
+                        <figcaption>Reading the pitch: every coach&rsquo;s first job.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/tour-ground.webp" width="1100" height="825" loading="lazy" alt="Open cricket ground with a red-soil pitch and wickets, hills in the distance, Panchgani">
+                        <figcaption>The ground in the hills of Panchgani.</figcaption>
+                    </figure>
+                </div>
+                <p class="tour-note">From our U-14 tour to Panchgani, November 2026: three matches in three days. No player is named or shown without written permission.</p>
+            </div>
+            <div>
+                <ul class="tour-points reveal">
+                    <li><span class="chk">&#10003;</span><span><strong>Real matches, real days.</strong> Your team plays other club teams, and the matches are scored ball by ball.</span></li>
+                    <li><span class="chk">&#10003;</span><span><strong>The coach leads.</strong> The coach gives the points. Our team records them. SWPI works with the coach.</span></li>
+                    <li><span class="chk">&#10003;</span><span><strong>A Tour Report for every player.</strong> One page: matches, runs and wickets from the scorecard, the coach&rsquo;s points, what worked, the next focus, and one question to ask at home.</span></li>
+                </ul>
+                <figure class="tour-report reveal">
+                    <img src="assets/tour-report-sample.webp" width="900" height="1273" loading="lazy" alt="Sample Tour Report page for a demo player with made-up numbers: matches, runs, wickets, coach's points and a question to ask at home">
+                    <figcaption>Sample Tour Report. Demo player, made-up numbers, to show the format.</figcaption>
+                </figure>
+                <div class="hero-btns" style="margin-top:26px;">
+                    <a href="https://wa.me/919920810017?text=Hello%20Jitendra%2C%20I%20would%20like%20to%20plan%20a%20cricket%20tour%20for%20our%20team.%20Please%20share%20the%20details." target="_blank" rel="noopener" class="btn-gold" data-track="plan_tour_whatsapp">Plan a tour for your team &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- ================================================ ROADMAP / PHASES -->
 <section class="sec-phases" id="roadmap">
     <div class="si">
         <div class="tc">
             <div class="slabel center">Product Roadmap</div>
             <h2 class="stitle">Built for the Long Game</h2>
-            <p class="sdesc">SWPI is a living platform. Here is what you unlock today, what is coming next, and our vision for 2027 and beyond.</p>
+            <p class="sdesc">SWPI is a living platform. Here is what you unlock today, what is coming next, and our vision for 2028 and beyond. Through 2027 our focus is cricket alone.</p>
         </div>
         <div class="phases-grid">
 
@@ -975,7 +1085,7 @@
 
             <div class="phase p2 reveal">
                 <div class="ph-num">2</div>
-                <div class="ph-badge">Coming Soon &mdash; Phase 2</div>
+                <div class="ph-badge">Planned &mdash; January 2028 &middot; Phase 2</div>
                 <h3>Football &amp; Athletics</h3>
                 <ul class="ph-list">
                     <li>Opportunities Hub &mdash; Tournaments &amp; Trials</li>
@@ -995,7 +1105,7 @@
 
             <div class="phase p3 reveal">
                 <div class="ph-num">3</div>
-                <div class="ph-badge">Vision 2027 &mdash; Phase 3</div>
+                <div class="ph-badge">Vision 2028 &amp; beyond &mdash; Phase 3</div>
                 <h3>India Fitness Test</h3>
                 <ul class="ph-list">
                     <li>Standardised Physical Assessments</li>
@@ -1029,7 +1139,7 @@
                     SWPI is built to grow with your academy. We begin with cricket &mdash; the sport with the richest data opportunity in India &mdash; and systematically expand to cover every sport your academy competes in.
                 </p>
                 <p class="sdesc">
-                    The same AI that watches a batsman&rsquo;s head and balance today will analyse a striker&rsquo;s shooting technique tomorrow, and a sprinter&rsquo;s block start in 2027. One login. One platform. One holistic view of your entire athletics programme.
+                    The same AI that watches a batsman&rsquo;s head and balance today will analyse a striker&rsquo;s shooting technique tomorrow, and a sprinter&rsquo;s block start from 2028. One login. One platform. One holistic view of your entire athletics programme.
                 </p>
             </div>
             <div>
@@ -1041,12 +1151,12 @@
                 <div class="sport-row reveal">
                     <div class="si-box" style="background:rgba(59,130,246,.12);">⚽</div>
                     <div class="sport-info"><h4>Football &amp; Athletics</h4><p>Position-specific movement, sprinting &amp; biomechanics</p></div>
-                    <div class="sport-badge ss">COMING SOON &middot; PHASE 2</div>
+                    <div class="sport-badge ss">PLANNED &middot; JAN 2028</div>
                 </div>
                 <div class="sport-row reveal">
                     <div class="si-box" style="background:rgba(139,92,246,.12);">🏃</div>
                     <div class="sport-info"><h4>India Fitness Test</h4><p>Standardised health and fitness benchmarking</p></div>
-                    <div class="sport-badge sf">PHASE 3 &middot; 2027</div>
+                    <div class="sport-badge sf">PHASE 3 &middot; 2028+</div>
                 </div>
             </div>
         </div>
@@ -1124,7 +1234,7 @@
             <div class="demo-form reveal" id="formWrap">
                 <h3>Request a Demo</h3>
                 <p class="form-sub">Fill in your details and we&rsquo;ll be in touch within 24 hours.</p>
-                <form id="demoForm" onsubmit="handleSubmit(event)">
+                <form id="demoForm" onsubmit="handleSubmit(event)" data-clarity-mask="True">
                     <div class="frow">
                         <div class="fg">
                             <label>Your Name</label>
@@ -1177,7 +1287,7 @@
                     <p>WhatsApp should have opened with your details already filled in. Just press send and Jitendra will personally reach out within 24 hours.</p>
                     <p style="margin-top:14px;font-size:13px;color:var(--muted);">Didn&rsquo;t open? Tap the button below &mdash; your details are already attached:</p>
                     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
-                        <a id="fallbackWa" href="https://wa.me/919920810017" target="_blank" rel="noopener" style="flex:1 1 200px;text-align:center;background:rgba(16,185,129,.14);border:1px solid var(--border-g);color:var(--green-lt);padding:12px 18px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;">💬 Open WhatsApp</a>
+                        <a id="fallbackWa" data-track="whatsapp_fallback" href="https://wa.me/919920810017" target="_blank" rel="noopener" style="flex:1 1 200px;text-align:center;background:rgba(16,185,129,.14);border:1px solid var(--border-g);color:var(--green-lt);padding:12px 18px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;">💬 Open WhatsApp</a>
                     </div>
                 </div>
             </div>
@@ -1194,17 +1304,58 @@
     <div class="f-links">
         <a href="#swpi">SWPI</a>
         <a href="#swoi">SWOI</a>
+        <a href="#tours">Cricket Tours</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#founder">About</a>
         <a href="#demo">Demo</a>
     </div>
     <div class="f-right">
         <div>📧 jitendra@sportz-well.com &nbsp;&middot;&nbsp; 📞 +91 99208 10017</div>
-        <div>&copy; 2026 Sportz-Well. Mumbai, Maharashtra. All rights reserved. &middot; <a href="privacy.html" style="color:inherit;">Privacy Policy</a> &middot; <a href="terms.html" style="color:inherit;">Terms of Service</a></div>
+        <div>&copy; 2026 Sportz-Well. Mumbai, Maharashtra. All rights reserved. &middot; <a href="privacy.html" style="color:inherit;">Privacy Policy</a> &middot; <a href="terms.html" style="color:inherit;">Terms of Service</a> &middot; <button type="button" class="f-cookie" onclick="swCookieOpen()">Cookie settings</button></div>
     </div>
 </footer>
 
+<!-- ================================================ COOKIE NOTICE -->
+<div id="cookieBar" role="dialog" aria-label="Cookie notice">
+    We use Google Analytics and Microsoft Clarity to count visits and see which pages and buttons help. No ads, and we never sell data. Your choice is saved on this device. <a href="privacy.html">Privacy Policy</a>
+    <div class="cb-btns">
+        <button type="button" class="cb-yes" onclick="swCookie('yes')">Accept</button>
+        <button type="button" class="cb-no" onclick="swCookie('no')">No thanks</button>
+    </div>
+</div>
+
 <!-- ================================================ SCRIPTS -->
+<script>
+    /* Visitor counting: loads only after the visitor presses Accept. */
+    var SW_GA = 'G-QXELYTZ7RJ', SW_CLARITY = 'zh0gpgxo06';
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    function swConsent() { try { return localStorage.getItem('swc-consent'); } catch (e) { return null; } }
+    function swLoadAnalytics() {
+        if (window.__swAnalytics) return; window.__swAnalytics = true;
+        var g = document.createElement('script'); g.async = true;
+        g.src = 'https://www.googletagmanager.com/gtag/js?id=' + SW_GA; document.head.appendChild(g);
+        gtag('js', new Date()); gtag('config', SW_GA);
+        (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",SW_CLARITY);
+    }
+    function swTrack(name) { if (window.__swAnalytics) { try { gtag('event', name); } catch (e) {} } }
+    function swCookie(v) {
+        try { localStorage.setItem('swc-consent', v); } catch (e) {}
+        document.getElementById('cookieBar').style.display = 'none';
+        if (v === 'yes') swLoadAnalytics();
+    }
+    function swCookieOpen() { document.getElementById('cookieBar').style.display = 'block'; }
+    (function () {
+        var c = swConsent();
+        if (c === 'yes') swLoadAnalytics(); else if (c !== 'no') swCookieOpen();
+        document.addEventListener('click', function (e) {
+            var el = e.target.closest ? e.target.closest('[data-track]') : null;
+            if (el) swTrack(el.getAttribute('data-track'));
+        });
+    })();
+</script>
 <script>
     /* Tab switcher */
     function showTab(id, btn) {
@@ -1239,6 +1390,7 @@
             'Please get in touch to schedule a walkthrough.\n\nThank you.';
 
         const wa = 'https://wa.me/919920810017?text=' + encodeURIComponent(body);
+        swTrack('demo_form_submit');
 
         /* Pre-fill the on-screen button too, so the details are never lost if WhatsApp does not open. */
         document.getElementById('fallbackWa').href = wa;
