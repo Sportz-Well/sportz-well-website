@@ -625,6 +625,13 @@
         #cookieBar .cb-yes { background:var(--gold); color:#060D1F; border:0; }
         #cookieBar .cb-no { background:transparent; color:#CBD5E1; border:1px solid var(--border); }
         .f-cookie { background:none; border:0; color:inherit; font:inherit; text-decoration:underline; cursor:pointer; padding:0; }
+        .tour-team { margin-top:56px; }
+        .tour-team h3 { font-family:'Outfit',sans-serif; font-size:22px; font-weight:700; text-align:center; margin-bottom:22px; }
+        .tour-team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .tour-team figure { margin:0; border-radius:14px; overflow:hidden; border:1px solid var(--border); background:var(--card); }
+        .tour-team img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; }
+        .tour-team figcaption { font-size:12px; color:var(--muted); padding:9px 12px 11px; line-height:1.5; }
+        @media(max-width:900px) { .tour-team-grid { grid-template-columns:1fr; } }
         @media(max-width:900px) { .tours-grid { grid-template-columns:1fr; } }
     </style>
 </head>
@@ -1031,7 +1038,7 @@
                         <figcaption>The ground in the hills of Panchgani.</figcaption>
                     </figure>
                 </div>
-                <p class="tour-note">From our U-14 tour to Panchgani, November 2026: three matches in three days. No player is named or shown without written permission.</p>
+                <p class="tour-note">From our U-14 tour to Panchgani, November 2026: three matches in three days. Players are shown with their parents&rsquo; permission and are never named.</p>
             </div>
             <div>
                 <ul class="tour-points reveal">
@@ -1046,6 +1053,23 @@
                 <div class="hero-btns" style="margin-top:26px;">
                     <a href="https://wa.me/919920810017?text=Hello%20Jitendra%2C%20I%20would%20like%20to%20plan%20a%20cricket%20tour%20for%20our%20team.%20Please%20share%20the%20details." target="_blank" rel="noopener" class="btn-gold" data-track="plan_tour_whatsapp">Plan a tour for your team &rarr;</a>
                 </div>
+            </div>
+        </div>
+        <div class="tour-team reveal">
+            <h3>The team on tour</h3>
+            <div class="tour-team-grid">
+                <figure>
+                    <img src="assets/team-day1.webp" width="1100" height="825" loading="lazy" alt="Young cricketers in whites with their two coaches, smiling for a team photo on the ground before the first match of the tour">
+                    <figcaption>Day 1: the team with its coaches before the first match.</figcaption>
+                </figure>
+                <figure>
+                    <img src="assets/team-huddle.webp" width="1100" height="677" loading="lazy" alt="Cricket team in a tight huddle with their coach, seen from behind, on the ground between matches">
+                    <figcaption>Day 2: the huddle.</figcaption>
+                </figure>
+                <figure>
+                    <img src="assets/team-trophies.webp" width="1100" height="825" loading="lazy" alt="Young cricketers and two adults posing with the tour trophies on the final day, all smiling">
+                    <figcaption>Final day: the team with the tour trophies. Runners-up, and proud.</figcaption>
+                </figure>
             </div>
         </div>
     </div>
